@@ -96,18 +96,20 @@
 
 
 
-  <meta name="description" content="flex布局的好处 灵活 直观">
+  <meta name="description" content="目录    介绍 轴 参考     介绍Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。  —– MDN Flexbox布局提供了一种更为高效的方式，用于布局、对齐、以及分配与控制容器内元素间空隙，即使它们的大小仍是未知或是动态的。 — Guide to Flexbox">
 <meta name="keywords" content="flex">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flex布局新学习">
 <meta property="og:url" content="http://yoursite.com/2019/03/31/flex布局新学习/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
-<meta property="og:description" content="flex布局的好处 灵活 直观">
+<meta property="og:description" content="目录    介绍 轴 参考     介绍Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。  —– MDN Flexbox布局提供了一种更为高效的方式，用于布局、对齐、以及分配与控制容器内元素间空隙，即使它们的大小仍是未知或是动态的。 — Guide to Flexbox">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-31T09:49:23.053Z">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/flex-direction.svg">
+<meta property="og:updated_time" content="2019-03-31T15:48:38.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flex布局新学习">
-<meta name="twitter:description" content="flex布局的好处 灵活 直观">
+<meta name="twitter:description" content="目录    介绍 轴 参考     介绍Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。  —– MDN Flexbox布局提供了一种更为高效的方式，用于布局、对齐、以及分配与控制容器内元素间空隙，即使它们的大小仍是未知或是动态的。 — Guide to Flexbox">
+<meta name="twitter:image" content="https://css-tricks.com/wp-content/uploads/2018/10/flex-direction.svg">
 
 
 
@@ -193,7 +195,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -221,7 +223,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
 
   </li>
         
@@ -238,7 +240,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -255,7 +257,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -272,7 +274,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
         
@@ -377,14 +379,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-31 17:36:55 / Geändert am: 17:49:23" itemprop="dateCreated datePublished" datetime="2019-03-31T17:36:55+08:00">2019-03-31</time>
+              <time title="Post created: 2019-03-31 17:36:55 / Updated at: 23:48:38" itemprop="dateCreated datePublished" datetime="2019-03-31T17:36:55+08:00">2019-03-31</time>
             
 
             
@@ -403,7 +405,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a></span>
@@ -441,11 +443,43 @@
       
 
       
-        <h1 id="flex布局的好处"><a href="#flex布局的好处" class="headerlink" title="flex布局的好处"></a>flex布局的好处</h1><ol>
-<li>灵活</li>
-<li>直观</li>
-</ol>
+        <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#jie-shao">介绍</a></li>
+<li><a href="#zhou">轴</a></li>
+<li><a href="#can-kao">参考</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="jie-shao">介绍</span><a href="#jie-shao" class="header-anchor">#</a></h2><p>Flexible Box 模型，通常被称为 flexbox，是一种<strong>一维的布局模型</strong>。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。  —– MDN</p>
+<p>Flexbox布局提供了一种更为高效的方式，用于布局、对齐、以及分配与控制容器内元素间空隙，<strong>即使它们的大小仍是未知或是动态的</strong>。 — Guide to Flexbox</p>
 <a id="more"></a>
+<h2><span id="zhou">轴</span><a href="#zhou" class="header-anchor">#</a></h2><p>Flex布局中，存在着两根轴线，即主轴与交叉轴（可以理解为副轴），两者呈垂直并交集于一点，此点应为flex容器（container）的起始像素坐标；</p>
+<p>主轴交叉轴相比于我们常见的 X轴Y轴 有相似之处又有所不同，其中，主轴可以是X轴，也可以是Y轴；同理，交叉轴在主轴为X轴方向时，作为Y轴，在主轴为Y轴方向时，作为X轴；二者相垂直即为基本条件；</p>
+<p>对于轴呈现为X轴方向或是Y轴方向的配置，使用 <code>flex-direction</code> 来定义，有四个参数可设定：</p>
+<ul>
+<li><code>row</code></li>
+<li><code>row-reverse</code></li>
+<li><code>column</code></li>
+<li><code>column-reverse</code></li>
+</ul>
+<p><code>row</code> 指定了主轴是沿着X轴方向延伸的，即容器内部的元素是按照从左向右（X轴的延伸方向）；</p>
+<p><code>column</code> 则指定主轴是沿着Y轴方向延伸的，即容器内部的元素是按照从上到下（Y轴的延伸方向）；</p>
+<p>而加上 <code>reverse</code> 则就是顾名思义，在原来的基础上，反向排列；</p>
+<blockquote>
+<blockquote>
+<p>贴上一张图来辅助理解：</p>
+<p><img src="https://css-tricks.com/wp-content/uploads/2018/10/flex-direction.svg" width="50%"></p>
+</blockquote>
+</blockquote>
+<p>待续啊…</p>
+<h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><ul>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox" target="_blank" rel="noopener">https://css-tricks.com/snippets/css/a-guide-to-flexbox</a></li>
+<li><a href="https://www.w3cplus.com/css/flex-item-calculate.html" target="_blank" rel="noopener">https://www.w3cplus.com/css/flex-item-calculate.html</a></li>
+</ul>
 
       
     </div>
@@ -520,10 +554,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table Des Matières
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Ensemble
           </li>
         </ul>
       
@@ -544,7 +578,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">1</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">articles</span>
                   </a>
                 </div>
               
@@ -559,7 +593,7 @@
                       
                     
                     <span class="site-state-item-count">1</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   
                 </div>
               
@@ -574,7 +608,7 @@
                       
                     
                     <span class="site-state-item-count">1</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -637,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#flex布局的好处"><span class="nav-number">1.</span> <span class="nav-text">flex布局的好处</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">介绍#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">轴#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">参考#</span></a></li></ol></div>
             
 
           </div>
@@ -670,7 +704,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
