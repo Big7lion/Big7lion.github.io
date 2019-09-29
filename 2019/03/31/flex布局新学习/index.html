@@ -105,7 +105,7 @@
 <meta property="og:description" content="目录    介绍 轴 参考     介绍Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。  —– MDN Flexbox布局提供了一种更为高效的方式，用于布局、对齐、以及分配与控制容器内元素间空隙，即使它们的大小仍是未知或是动态的。 — Guide to Flexbox">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/flex-direction.svg">
-<meta property="og:updated_time" content="2019-03-31T15:48:38.806Z">
+<meta property="og:updated_time" content="2019-09-29T15:36:46.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flex布局新学习">
 <meta name="twitter:description" content="目录    介绍 轴 参考     介绍Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。  —– MDN Flexbox布局提供了一种更为高效的方式，用于布局、对齐、以及分配与控制容器内元素间空隙，即使它们的大小仍是未知或是动态的。 — Guide to Flexbox">
@@ -230,40 +230,6 @@
         
         
           
-          <li class="menu-item menu-item-tags">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
-
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-archives">
 
     
@@ -275,23 +241,6 @@
     
 
     <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-sitemap">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
 
   </li>
 
@@ -386,12 +335,24 @@
                 
               
 
-              <time title="Post created: 2019-03-31 17:36:55 / Updated at: 23:48:38" itemprop="dateCreated datePublished" datetime="2019-03-31T17:36:55+08:00">2019-03-31</time>
+              <time title="Post created: 2019-03-31 17:36:55" itemprop="dateCreated datePublished" datetime="2019-03-31T17:36:55+08:00">2019-03-31</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-09-29 23:36:46" itemprop="dateModified" datetime="2019-09-29T23:36:46+08:00">2019-09-29</time>
               
             
           </span>
@@ -461,7 +422,7 @@
 <p>主轴交叉轴相比于我们常见的 X轴Y轴 有相似之处又有所不同，其中，主轴可以是X轴，也可以是Y轴；同理，交叉轴在主轴为X轴方向时，作为Y轴，在主轴为Y轴方向时，作为X轴；二者相垂直即为基本条件；</p>
 <p>对于轴呈现为X轴方向或是Y轴方向的配置，使用 <code>flex-direction</code> 来定义，有四个参数可设定：</p>
 <ul>
-<li><code>row</code></li>
+<li><code>row</code> (默认)</li>
 <li><code>row-reverse</code></li>
 <li><code>column</code></li>
 <li><code>column-reverse</code></li>
@@ -470,10 +431,8 @@
 <p><code>column</code> 则指定主轴是沿着Y轴方向延伸的，即容器内部的元素是按照从上到下（Y轴的延伸方向）；</p>
 <p>而加上 <code>reverse</code> 则就是顾名思义，在原来的基础上，反向排列；</p>
 <blockquote>
-<blockquote>
 <p>贴上一张图来辅助理解：</p>
 <p><img src="https://css-tricks.com/wp-content/uploads/2018/10/flex-direction.svg" width="50%"></p>
-</blockquote>
 </blockquote>
 <p>待续啊…</p>
 <h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><ul>
@@ -512,6 +471,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/02/rails初探/" rel="prev" title="rails初探">
+                rails初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -577,7 +552,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">articles</span>
                   </a>
                 </div>
@@ -592,7 +567,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">categories</span>
                   
                 </div>
@@ -607,7 +584,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

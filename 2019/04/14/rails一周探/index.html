@@ -96,13 +96,18 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Big7lion&#39;s Page">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="目录    约定 命名约定 数据库里的模型约定   CRUD 创建 读取 更新 删除 数据验证       约定命名约定Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：  数据库表名：复数，下划线分隔单词（例如 book">
+<meta name="keywords" content="rails,model">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rails一周探 day1">
+<meta property="og:url" content="http://yoursite.com/2019/04/14/rails一周探/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
+<meta property="og:description" content="目录    约定 命名约定 数据库里的模型约定   CRUD 创建 读取 更新 删除 数据验证       约定命名约定Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：  数据库表名：复数，下划线分隔单词（例如 book">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-29T15:36:46.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Big7lion&#39;s Page">
+<meta name="twitter:title" content="rails一周探 day1">
+<meta name="twitter:description" content="目录    约定 命名约定 数据库里的模型约定   CRUD 创建 读取 更新 删除 数据验证       约定命名约定Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：  数据库表名：复数，下划线分隔单词（例如 book">
 
 
 
@@ -110,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/14/rails一周探/">
 
 
 
@@ -120,7 +125,7 @@
   };
 </script>
 
-  <title>Big7lion's Page</title>
+  <title>rails一周探 day1 | Big7lion's Page</title>
   
 
 
@@ -168,8 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -207,7 +211,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -269,9 +273,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -303,10 +307,8 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/14/rails一周探/" class="post-title-link" itemprop="url">rails一周探 day1</a>
+          <h2 class="post-title" itemprop="name headline">rails一周探 day1
+
               
             
           </h2>
@@ -400,8 +402,7 @@
       
 
       
-        
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><div class="tocStart"></div>
+        <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><div class="toc">
 
 <!-- toc -->
 <ul>
@@ -420,9 +421,9 @@
 </li>
 </ul>
 <!-- tocstop -->
-<div class="tocEnd"></div>
+</div>
 
-<h2 id="约定"><a href="#约定" class="headerlink" title="约定"></a>约定</h2><h3 id="命名约定"><a href="#命名约定" class="headerlink" title="命名约定"></a>命名约定</h3><p>Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：</p>
+<h2><span id="yue-ding">约定</span><a href="#yue-ding" class="header-anchor">#</a></h2><h3><span id="ming-ming-yue-ding">命名约定</span><a href="#ming-ming-yue-ding" class="header-anchor">#</a></h3><p>Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：</p>
 <ul>
 <li>数据库表名：复数，下划线分隔单词（例如 book_clubs）</li>
 <li>模型类名：单数，每个单词的首字母大写（例如 BookClub）</li>
@@ -457,7 +458,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="数据库里的模型约定"><a href="#数据库里的模型约定" class="headerlink" title="数据库里的模型约定"></a>数据库里的模型约定</h3><p>根据字段的作用不同，Active Record 对数据库表中的字段命名也做了相应的约定：</p>
+<h3><span id="shu-ju-ku-li-de-mo-xing-yue-ding">数据库里的模型约定</span><a href="#shu-ju-ku-li-de-mo-xing-yue-ding" class="header-anchor">#</a></h3><p>根据字段的作用不同，Active Record 对数据库表中的字段命名也做了相应的约定：</p>
 <p>外键：使用 <code>singularized_table_name_id</code> 形式命名，例如 <code>item_id</code>，<code>order_id</code> 。创建模型关联后，Active Record 会查找这个字段；<br>主键：默认情况下，Active Record 使用整数字段 id 作为表的主键。使用 Active Record 迁移创建数据库表时，会自动创建这个字段；</p>
 <p>还有一些可选的字段，能为 Active Record 实例添加更多的功能：</p>
 <ol>
@@ -468,16 +469,21 @@
 <li><code>(association_name)_type</code>：存储多态关联的类型；</li>
 <li><code>(table_name)_count</code>：缓存所关联对象的数量。比如说，一个 Article 有多个 Comment，那么 comments_count 列存储各篇文章现有的评论数量；</li>
 </ol>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/14/rails一周探/#more" rel="contents">
-                Lire la suite &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
+<a id="more"></a>
+<h2><span id="crud">CRUD</span><a href="#crud" class="header-anchor">#</a></h2><h3><span id="chuang-jian">创建</span><a href="#chuang-jian" class="header-anchor">#</a></h3><p><code>new</code>和<code>create</code>方法都能创建新对象，区别在于，<code>new</code>产生的对象需要<code>save方法</code>才能存入数据库，而<code>creat方法</code>即时创建</p>
+<h3><span id="du-qu">读取</span><a href="#du-qu" class="header-anchor">#</a></h3><p>以<code>User</code>为例；</p>
+<ol>
+<li><code>User.all</code> 返回所有的集合</li>
+<li><code>User.first</code> 返回第一条</li>
+<li><code>User.find_by(name: &#39;David&#39;)</code> 返回第一个name是David的条目</li>
+<li><code>User.where(name: &#39;David&#39;, occupation: &#39;Code Artist&#39;).order(created_at: :desc)</code> 查找所有名为 David，职业为 Code Artists 的用户，而且按照 created_at 反向排列（:desc）</li>
+</ol>
+<h3><span id="geng-xin">更新</span><a href="#geng-xin" class="header-anchor">#</a></h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/普通修改</span></span><br><span class="line"><span class="regexp">user = User.find_by(name: 'David')</span></span><br><span class="line"><span class="regexp">user.name = 'Dave'</span></span><br><span class="line"><span class="regexp">user.save</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/散列式简写</span></span><br><span class="line"><span class="regexp">user = User.find_by(name: 'David')</span></span><br><span class="line"><span class="regexp">user.update(name: 'Dave')</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/一次更新多个属性时</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">User.update_all "max_login_attempts = 3, must_change_password = 'true'"</span></span><br></pre></td></tr></table></figure>
+<h3><span id="shan-chu">删除</span><a href="#shan-chu" class="header-anchor">#</a></h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user = User.find_by(<span class="symbol">name:</span> <span class="string">'David'</span>)</span><br><span class="line">user.destroy</span><br></pre></td></tr></table></figure>
+<h3><span id="shu-ju-yan-zheng">数据验证</span><a href="#shu-ju-yan-zheng" class="header-anchor">#</a></h3><p><code>save!</code> 和 <code>update!</code>，被称为<strong>爆炸方法</strong>,如果验证失<code>败，抛出 ActiveRecord::RecordInvalid</code> 异常</p>
+
       
     </div>
 
@@ -498,453 +504,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/rails初探/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="biglion">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Big7lion's Page">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/02/rails初探/" class="post-title-link" itemprop="url">rails初探</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posté le</span>
-              
-
-              
-                
-              
-
-              <time title="Post created: 2019-04-02 17:42:52" itemprop="dateCreated datePublished" datetime="2019-04-02T17:42:52+08:00">2019-04-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Updated at: 2019-09-29 23:36:46" itemprop="dateModified" datetime="2019-09-29T23:36:46+08:00">2019-09-29</time>
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/rails/" itemprop="url" rel="index"><span itemprop="name">rails</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/rails/" rel="tag"># rails</a>
           
-
+            <a href="/tags/model/" rel="tag"># model</a>
           
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><div class="tocStart"></div>
-
-<!-- toc -->
-<ul>
-<li><a href="#qing-qiu-de-liu-cheng">请求的流程</a></li>
-<li><a href="#kai-fa-de-liu-cheng">开发的流程</a></li>
-</ul>
-<!-- tocstop -->
-<div class="tocEnd"></div>
-
-<h2 id="请求的流程"><a href="#请求的流程" class="headerlink" title="请求的流程"></a>请求的流程</h2><p>浏览器（用户）向服务器提出请求时，首先经过route对链接进行解析后并导向相应的controller，并根据以下表格，自动查找并执行定义在controller内的action：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Rails Path</th>
-<th style="text-align:center">Url Path</th>
-<th style="text-align:center">Http Type</th>
-<th style="text-align:center">Controller action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">missions_path</td>
-<td style="text-align:center">/missions</td>
-<td style="text-align:center">GET</td>
-<td style="text-align:center">index</td>
-</tr>
-<tr>
-<td style="text-align:center">missions_path</td>
-<td style="text-align:center">/missions</td>
-<td style="text-align:center">POST</td>
-<td style="text-align:center">create</td>
-</tr>
-<tr>
-<td style="text-align:center">new_team_mission_path</td>
-<td style="text-align:center">/missions/new</td>
-<td style="text-align:center">POST</td>
-<td style="text-align:center">new</td>
-</tr>
-<tr>
-<td style="text-align:center">edit_mission_path</td>
-<td style="text-align:center">/missions/id/edit</td>
-<td style="text-align:center">GET</td>
-<td style="text-align:center">edit</td>
-</tr>
-<tr>
-<td style="text-align:center">missions_path</td>
-<td style="text-align:center">/missions/id</td>
-<td style="text-align:center">GET</td>
-<td style="text-align:center">show</td>
-</tr>
-<tr>
-<td style="text-align:center">missions_path</td>
-<td style="text-align:center">/missions/id</td>
-<td style="text-align:center">PATCH</td>
-<td style="text-align:center">update</td>
-</tr>
-<tr>
-<td style="text-align:center">missions_path</td>
-<td style="text-align:center">/missions/id</td>
-<td style="text-align:center">DELETE</td>
-<td style="text-align:center">destroy</td>
-</tr>
-</tbody>
-</table>
-<p>controller同时肩负向用户反馈数据的任务，包括如html.erb，js.erb，json等数据，状态码等；</p>
-<p>在controller中，同时与负责管理数据的model相关联，执行包括数据的增删改查等操作，以将数据放入模板文件传递回给用户；</p>
-<p>model可包含对数据的处理方法，如校验等操作；</p>
-<p>浏览器(用户)接收到来自controller的模板或数据，或渲染，或通过js操作dom，等，以达到改变view的目的；</p>
-<p>至此，形成一个响应循环。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/02/rails初探/#more" rel="contents">
-                Lire la suite &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/02/rails初探/" rel="next" title="rails初探">
+                <i class="fa fa-chevron-left"></i> rails初探
               </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/flex布局新学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="biglion">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Big7lion's Page">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/31/flex布局新学习/" class="post-title-link" itemprop="url">flex布局新学习</a>
-              
             
-          </h2>
-        
+          </div>
 
-        <div class="post-meta">
-          <span class="post-time">
+          <span class="post-nav-divider"></span>
 
+          <div class="post-nav-prev post-nav-item">
             
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posté le</span>
-              
-
-              
-                
-              
-
-              <time title="Post created: 2019-03-31 17:36:55" itemprop="dateCreated datePublished" datetime="2019-03-31T17:36:55+08:00">2019-03-31</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Updated at: 2019-09-29 23:36:46" itemprop="dateModified" datetime="2019-09-29T23:36:46+08:00">2019-09-29</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><div class="tocStart"></div>
-
-<!-- toc -->
-<ul>
-<li><a href="#jie-shao">介绍</a></li>
-<li><a href="#zhou">轴</a></li>
-<li><a href="#can-kao">参考</a></li>
-</ul>
-<!-- tocstop -->
-<div class="tocEnd"></div>
-
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Flexible Box 模型，通常被称为 flexbox，是一种<strong>一维的布局模型</strong>。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。  —– MDN</p>
-<p>Flexbox布局提供了一种更为高效的方式，用于布局、对齐、以及分配与控制容器内元素间空隙，<strong>即使它们的大小仍是未知或是动态的</strong>。 — Guide to Flexbox</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/31/flex布局新学习/#more" rel="contents">
-                Lire la suite &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -954,14 +545,15 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -981,8 +573,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1086,6 +687,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">约定#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">命名约定#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">数据库里的模型约定#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">CRUD#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">创建#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text">读取#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.</span> <span class="nav-text">更新#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.</span> <span class="nav-text">删除#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.5.</span> <span class="nav-text">数据验证#</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1213,6 +831,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -1228,6 +850,8 @@
 
   
 
+
+  
 
 
   
