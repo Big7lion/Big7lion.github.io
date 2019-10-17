@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-CN,default">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -97,14 +97,14 @@
 
 
   <meta name="description" content="目录    请求的流程 开发的流程     请求的流程浏览器（用户）向服务器提出请求时，首先经过route对链接进行解析后并导向相应的controller，并根据以下表格，自动查找并执行定义在controller内的action：    Rails Path Url Path Http Type Controller action     missions_path /missions GET i">
-<meta name="keywords" content="rails,model">
+<meta name="keywords" content="约定与规范,model">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rails初探">
 <meta property="og:url" content="http://yoursite.com/2019/04/02/rails初探/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
 <meta property="og:description" content="目录    请求的流程 开发的流程     请求的流程浏览器（用户）向服务器提出请求时，首先经过route对链接进行解析后并导向相应的controller，并根据以下表格，自动查找并执行定义在controller内的action：    Rails Path Url Path Http Type Controller action     missions_path /missions GET i">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-29T15:36:46.977Z">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-29T15:58:29.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rails初探">
 <meta name="twitter:description" content="目录    请求的流程 开发的流程     请求的流程浏览器（用户）向服务器提出请求时，首先经过route对链接进行解析后并导向相应的controller，并根据以下表格，自动查找并执行定义在controller内的action：    Rails Path Url Path Http Type Controller action     missions_path /missions GET i">
@@ -166,7 +166,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -193,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -221,7 +221,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
   </li>
         
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
 
   </li>
 
@@ -326,14 +326,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-04-02 17:42:52" itemprop="dateCreated datePublished" datetime="2019-04-02T17:42:52+08:00">2019-04-02</time>
+              <time title="创建时间：2019-04-02 17:42:52" itemprop="dateCreated datePublished" datetime="2019-04-02T17:42:52+08:00">2019-04-02</time>
             
 
             
@@ -348,9 +348,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">更新于</span>
                 
-                <time title="Updated at: 2019-09-29 23:36:46" itemprop="dateModified" datetime="2019-09-29T23:36:46+08:00">2019-09-29</time>
+                <time title="修改时间：2019-09-29 23:58:29" itemprop="dateModified" datetime="2019-09-29T23:58:29+08:00">2019-09-29</time>
               
             
           </span>
@@ -364,7 +364,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/rails/" itemprop="url" rel="index"><span itemprop="name">rails</span></a></span>
@@ -490,7 +490,8 @@
 </li>
 <li><p>添加view部分，如html.erb，js.erb 等文件;</p>
 <p>例如一个简单的编辑页面，经route导向而来，接收来自controller的数据，渲染成正常的html页面：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"changeaman"</span>&gt;</span></span><br><span class="line">快改名字</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">value</span>=<span class="string">"&lt;%= @people.id %&gt;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>姓<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"firstname"</span> <span class="attr">value</span>=<span class="string">"&lt;%= @people.firstname %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>名<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"lastname"</span> <span class="attr">value</span>=<span class="string">"&lt;%= @people.lastname %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    changeaman.onsubmit = (e) =&gt;&#123;</span></span><br><span class="line"><span class="undefined">        e.preventDefault()</span></span><br><span class="line"><span class="undefined">        const xhr = new XMLHttpRequest();</span></span><br><span class="line"><span class="undefined">        xhr.open("PATCH",`/master/$&#123;changeaman.id.value&#125;`)</span></span><br><span class="line"><span class="undefined">        xhr.onload = () =&gt; &#123;</span></span><br><span class="line"><span class="undefined">            window.location = '/master/'</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        xhr.setRequestHeader('Content-Type', 'application/json')</span></span><br><span class="line"><span class="undefined">        xhr.send(JSON.stringify(&#123;</span></span><br><span class="line"><span class="undefined">            firstname: changeaman.firstname.value,</span></span><br><span class="line"><span class="undefined">            lastname: changeaman.lastname.value</span></span><br><span class="line"><span class="undefined">        &#125;))</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"changeaman"</span>&gt;</span></span><br><span class="line">快改名字</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">value</span>=<span class="string">"&lt;%= @people.id %&gt;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>姓<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"firstname"</span> <span class="attr">value</span>=<span class="string">"&lt;%= @people.firstname %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>名<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"lastname"</span> <span class="attr">value</span>=<span class="string">"&lt;%= @people.lastname %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">    changeaman.onsubmit = (e) =&gt;&#123;</span><br><span class="line">        e.preventDefault()</span><br><span class="line">        const xhr = new XMLHttpRequest();</span><br><span class="line">        xhr.open("PATCH",`/master/$&#123;changeaman.id.value&#125;`)</span><br><span class="line">        xhr.onload = () =&gt; &#123;</span><br><span class="line">            window.location = '/master/'</span><br><span class="line">        &#125;</span><br><span class="line">        xhr.setRequestHeader('Content-Type', 'application/json')</span><br><span class="line">        xhr.send(JSON.stringify(&#123;</span><br><span class="line">            firstname: changeaman.firstname.value,</span><br><span class="line">            lastname: changeaman.lastname.value</span><br><span class="line">        &#125;))</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 
       
@@ -515,7 +516,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/rails/" rel="tag"># rails</a>
+            <a href="/tags/约定与规范/" rel="tag"># 约定与规范</a>
           
             <a href="/tags/model/" rel="tag"># model</a>
           
@@ -588,10 +589,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table Des Matières
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Ensemble
+            站点概览
           </li>
         </ul>
       
@@ -611,8 +612,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
-                    <span class="site-state-item-name">articles</span>
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
               
@@ -628,8 +629,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
-                    <span class="site-state-item-name">categories</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
                   
                 </div>
               
@@ -647,8 +650,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
-                    <span class="site-state-item-name">tags</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
                   
                 </div>
               
@@ -744,7 +749,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
 
 
 
