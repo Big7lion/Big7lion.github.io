@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/03/learn-promiseA-md/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/learn-promiseA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="biglion">
@@ -306,7 +306,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/10/03/learn-promiseA-md/" class="post-title-link" itemprop="url">learn-promiseA+.md</a>
+                <a href="/2019/11/23/learn-promiseA/" class="post-title-link" itemprop="url">深入JavaScript的原型链系统（译）.md</a>
               
             
           </h2>
@@ -331,12 +331,34 @@
                 
               
 
-              <time title="创建时间：2019-10-03 18:27:45" itemprop="dateCreated datePublished" datetime="2019-10-03T18:27:45+08:00">2019-10-03</time>
+              <time title="创建时间：2019-11-23 18:27:45 / 修改时间：20:47:25" itemprop="dateCreated datePublished" datetime="2019-11-23T18:27:45+08:00">2019-11-23</time>
             
 
+            
+              
+
+              
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -372,15 +394,32 @@
 <!-- toc -->
 <ul>
 <li><a href="#jian-jie">简介</a></li>
+<li><a href="#wo-men-de-mu-biao">我们的目标</a></li>
+<li><a href="#objects-dui-xiang">Objects 对象</a><ul>
+<li><a href="#object-literal-dui-xiang-zi-mian-liang">Object Literal 对象字面量</a></li>
+<li><a href="#object-create">Object.create</a></li>
+</ul>
+</li>
+<li><a href="#geng-jia-zi-dong-hua">更加自动化</a><ul>
+<li><a href="#factory-functions-gong-han-han-shu">Factory Functions 工厂函数</a></li>
+<li><a href="#oloo-objects-linked-to-other-objects-dui-xiang-wei-tuo">OLOO - Objects Linked To Other Objects 对象委托</a></li>
+</ul>
+</li>
 </ul>
 <!-- tocstop -->
 <div class="tocEnd"></div>
 
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文翻译自 <a href="https://www.debuggr.io/js-prototype-in-depth/" target="_blank" rel="noopener">JavaScript - The prototype chain in depth</a></p>
+<p>本文主要阐述了JavaScript的<code>继承</code>与<code>原型链</code>的概念；你将了解到：</p>
+<ol>
+<li>一个对象是如何链接到另一个对象的</li>
+<li><code>继承</code> 是如何实现的</li>
+<li>这些对象之间的关系是如何的</li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/10/03/learn-promiseA-md/#more" rel="contents">
+              <a class="btn" href="/2019/11/23/learn-promiseA/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1369,7 +1408,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   
                 </div>
