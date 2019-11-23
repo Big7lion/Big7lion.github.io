@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="目录    简介 我们的目标 对象 Object Literal 对象字面量 Object.create   更加自动化 Factory Functions 工厂函数 OLOO - Objects Linked To Other Objects 对象委托 new 操作符与构造函数   Class 声明一个类 写一个constructor 为 类 添加函数   继承 对象委托 - 继承 构造函数 -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入JavaScript的原型链系统（译）.md">
+<meta property="og:url" content="http://yoursite.com/2019/11/23/prototype-chain/index.html">
+<meta property="og:site_name" content="Big7lion&#39;s Page">
+<meta property="og:description" content="目录    简介 我们的目标 对象 Object Literal 对象字面量 Object.create   更加自动化 Factory Functions 工厂函数 OLOO - Objects Linked To Other Objects 对象委托 new 操作符与构造函数   Class 声明一个类 写一个constructor 为 类 添加函数   继承 对象委托 - 继承 构造函数 -">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--ICx1kq90--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/vj4xvfh8h5ycotygt923.gif">
+<meta property="og:updated_time" content="2019-11-23T16:29:23.505Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入JavaScript的原型链系统（译）.md">
+<meta name="twitter:description" content="目录    简介 我们的目标 对象 Object Literal 对象字面量 Object.create   更加自动化 Factory Functions 工厂函数 OLOO - Objects Linked To Other Objects 对象委托 new 操作符与构造函数   Class 声明一个类 写一个constructor 为 类 添加函数   继承 对象委托 - 继承 构造函数 -">
+<meta name="twitter:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--ICx1kq90--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/vj4xvfh8h5ycotygt923.gif">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/11/23/prototype-chain/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>深入JavaScript的原型链系统（译）.md | Big7lion's Page</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Big7lion's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/prototype-chain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="biglion">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Big7lion's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">深入JavaScript的原型链系统（译）.md
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-23 18:27:45" itemprop="dateCreated datePublished" datetime="2019-11-23T18:27:45+08:00">2019-11-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-24 00:29:23" itemprop="dateModified" datetime="2019-11-24T00:29:23+08:00">2019-11-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#jian-jie">简介</a></li>
+<li><a href="#wo-men-de-mu-biao">我们的目标</a></li>
+<li><a href="#dui-xiang">对象</a><ul>
+<li><a href="#object-literal-dui-xiang-zi-mian-liang">Object Literal 对象字面量</a></li>
+<li><a href="#object-create">Object.create</a></li>
+</ul>
+</li>
+<li><a href="#geng-jia-zi-dong-hua">更加自动化</a><ul>
+<li><a href="#factory-functions-gong-han-han-shu">Factory Functions 工厂函数</a></li>
+<li><a href="#oloo-objects-linked-to-other-objects-dui-xiang-wei-tuo">OLOO - Objects Linked To Other Objects 对象委托</a></li>
+<li><a href="#new-cao-zuo-fu-yu-gou-zao-han-shu"><code>new</code> 操作符与构造函数</a></li>
+</ul>
+</li>
+<li><a href="#class">Class</a><ul>
+<li><a href="#sheng-ming-yi-ge-lei">声明一个类</a></li>
+<li><a href="#xie-yi-ge-constructor">写一个constructor</a></li>
+<li><a href="#wei-lei-tian-jia-han-shu">为 <code>类</code> 添加函数</a></li>
+</ul>
+</li>
+<li><a href="#ji-cheng">继承</a><ul>
+<li><a href="#dui-xiang-wei-tuo-ji-cheng">对象委托 - 继承</a></li>
+<li><a href="#gou-zao-han-shu-ji-cheng">构造函数 - 继承</a></li>
+<li><a href="#lei-ji-cheng">类 - 继承</a></li>
+</ul>
+</li>
+<li><a href="#zong-jie">总结</a></li>
+<li><a href="#yi-zhe-zhu">译者注</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>本文翻译自 <a href="https://www.debuggr.io/js-prototype-in-depth/" target="_blank" rel="noopener">JavaScript - The prototype chain in depth</a></p>
+<p>本文主要阐述了JavaScript的<code>继承</code>与<code>原型链</code>的概念；你将了解到：</p>
+<ol>
+<li>一个对象是如何链接到另一个对象的</li>
+<li><code>继承</code> 是如何实现的</li>
+<li>这些对象之间的关系是如何的</li>
+</ol>
+<a id="more"></a>
+<h2><span id="wo-men-de-mu-biao">我们的目标</span><a href="#wo-men-de-mu-biao" class="header-anchor">#</a></h2><p>作为开发者，我们的编写代码时的主要任务通常是处理数据：将一些相关联的数据存储在某个地方作为数据集，再对数据集执行操作。</p>
+<p>将操作和与数据集绑定在一起，能让编程思路更为清晰；例如一个 <code>Player</code> 对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  userName: <span class="string">'sag1v'</span>,</span><br><span class="line">  score: <span class="string">'700'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如何执行一个操作来改变其中 <code>score</code> 的值？应该如何声明一个 <code>setScore</code> 函数方法？</p>
+<h2><span id="dui-xiang">对象</span><a href="#dui-xiang" class="header-anchor">#</a></h2><p>我们通常使用对象来存储一些有关联的数据，类似于将一些相关联的物体放进一个容器中；</p>
+<p>在深入解析之前，首先要了解什么是 <code>Object（对象）</code> 以及创建对象的几种方法。</p>
+<h3><span id="object-literal-dui-xiang-zi-mian-liang">Object Literal 对象字面量</span><a href="#object-literal-dui-xiang-zi-mian-liang" class="header-anchor">#</a></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> player1 = &#123;</span><br><span class="line">  userName: <span class="string">'sag1v'</span>,</span><br><span class="line">  score: <span class="string">'700'</span>,</span><br><span class="line">  setScore(newScore)&#123;</span><br><span class="line">    player1.score = newScore;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上这种初始化一个对象的写法被称为：对象字面量；每当执行这样的语句，就会创建一个新的对象。</p>
+<p>通过 <code>.</code> 操作符或 <code>[]</code> 操作符，也都可以创建或访问对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> player1 = &#123;</span><br><span class="line">  name: <span class="string">'Sagiv'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">player1.userName = <span class="string">'sag1v'</span>;</span><br><span class="line">player1[<span class="string">'score'</span>] = <span class="number">700</span>;</span><br><span class="line">player1.setScore = <span class="function"><span class="keyword">function</span>(<span class="params">newScore</span>) </span>&#123;</span><br><span class="line">  player1.score = newScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="object-create">Object.create</span><a href="#object-create" class="header-anchor">#</a></h3><p>另一种创建对象的方法是使用 <code>Object.create</code> 函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> player1 = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">player1.userName = <span class="string">'sag1v'</span>;</span><br><span class="line">player1[<span class="string">'score'</span>] = <span class="number">700</span>;</span><br><span class="line">player1.setScore = <span class="function"><span class="keyword">function</span>(<span class="params">newScore</span>) </span>&#123;</span><br><span class="line">  player1.score = newScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Object.create</code> 总是会返回一个<strong>空对象</strong>，但如果调用时传入一个对象，会得到一个“特别”的空对象（在后文说明其“特别”之处）；</p>
+<h2><span id="geng-jia-zi-dong-hua">更加自动化</span><a href="#geng-jia-zi-dong-hua" class="header-anchor">#</a></h2><p>每次都通过像上文代码那样去手动生成一个对象，并不划算，所以此时需要一个函数来帮助我们创建 <code>Player</code> 对象。</p>
+<h3><span id="factory-functions-gong-han-han-shu">Factory Functions 工厂函数</span><a href="#factory-functions-gong-han-han-shu" class="header-anchor">#</a></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPlayer</span>(<span class="params">userName, score</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newPlayer = &#123;</span><br><span class="line">    userName,</span><br><span class="line">    score,</span><br><span class="line">    setScore(newScore) &#123;</span><br><span class="line">      newPlayer.score = newScore;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> newPlayer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = createPlayer(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br></pre></td></tr></table></figure>
+<p>这种创建方法在设计模式中被称为 “工厂模式”；就像工厂中输出物体的传送带一样，将相关的参数传入 <code>createPlayer</code> 函数，就能得到所需要的对象。</p>
+<p>当执行两次 <code>createPlayer</code> 函数会发生什么呢？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> player1 = createPlayer(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> player2 = createPlayer(<span class="string">'sarah'</span>, <span class="number">900</span>);</span><br></pre></td></tr></table></figure>
+<p><a name="fatory-function-goal"></a></p>
+<p>生成了如下两个对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  userName: <span class="string">'sag1v'</span>,</span><br><span class="line">  score: <span class="number">700</span>,</span><br><span class="line">  setScore: ƒ</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  userName: <span class="string">'sarah'</span>,</span><br><span class="line">  score: <span class="number">900</span>,</span><br><span class="line">  setScore: ƒ</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以观察到存在一些重复的部分：在每个对象实例中都存在相同的 <code>setScore</code> 方法，这违反了编程中的 <strong>D.R.Y(Don’t Repeat Yourself)</strong> 法则。</p>
+<p>那如何做到只在某处只存储一次，但仍然能够通过函数实例来执行 <code>setScore</code> 呢？（形如：<code>player1.setScore(1000)</code>）。</p>
+<h3><span id="oloo-objects-linked-to-other-objects-dui-xiang-wei-tuo">OLOO - Objects Linked To Other Objects 对象委托</span><a href="#oloo-objects-linked-to-other-objects-dui-xiang-wei-tuo" class="header-anchor">#</a></h3><p>重新回到 <code>Object.create</code> 这个话题，它总是会创建一个空对象，而它的“特殊”之处就在于当我们将一个对象作为它的参数时，会得到一个有“特殊”属性的空对象，如码所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> playerFunctions = &#123;</span><br><span class="line">  setScore(newScore) &#123;</span><br><span class="line">    <span class="keyword">this</span>.score = newScore;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPlayer</span>(<span class="params">userName, score</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newPlayer = <span class="built_in">Object</span>.create(playerFunctions);</span><br><span class="line">  newPlayer.userName = userName;</span><br><span class="line">  newPlayer.score = score;</span><br><span class="line">  <span class="keyword">return</span> newPlayer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = createPlayer(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> player2 = createPlayer(<span class="string">'sarah'</span>, <span class="number">900</span>);</span><br></pre></td></tr></table></figure>
+<p>上述代码为对象委托，它与工厂模式最为重要的区别在于：对象委托模式所创建的对象自身内部并没有 <code>setScore</code> 方法， 但这个对象链接到了 <code>playerFunctions</code> 方法。</p>
+<p>原来，任意一个JavaScript对象（称为对象A）都有一个称为 <code>__proto__</code> 的隐藏属性，并且，这个属性的值如果是一个对象（称为对象B），JavaScript解释器会将对象B的所有属性，也当作原对象A的属性；换句话来说，对象A能通过 <code>__proto__</code> 像访问自己的属性一样访问到对象B的属；</p>
+<p>⚠️ Note<br>  不要混淆了 <code>__proto__</code> 和 <code>prototype</code>，<code>prototype</code> 只存在于函数中；而 <code>__proto__</code>只存在于对象中<sub>（译者注：而函数是个特殊的对象，所以函数也有 <code>__proto__</code>）</sub>。</p>
+<p>以下是语义更易于理解的代码示例:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> playerFunctions = &#123;</span><br><span class="line">  setScore(newScore) &#123;</span><br><span class="line">    <span class="keyword">this</span>.score = newScore;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPlayer</span>(<span class="params">userName, score</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newPlayer = <span class="built_in">Object</span>.create(playerFunctions);</span><br><span class="line">  newPlayer.userName = userName;</span><br><span class="line">  newPlayer.score = score;</span><br><span class="line">  <span class="keyword">return</span> newPlayer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = createPlayer(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> player2 = createPlayer(<span class="string">'sarah'</span>, <span class="number">900</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(player1)</span><br><span class="line"><span class="built_in">console</span>.log(player2)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出的内容:</span></span><br><span class="line"></span><br><span class="line">player1: &#123;</span><br><span class="line">  userName: <span class="string">'sag1v'</span>,</span><br><span class="line">  score: <span class="number">700</span>,</span><br><span class="line">  __proto__: playerFunctions</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">player2: &#123;</span><br><span class="line">  userName: <span class="string">'sarah'</span>,</span><br><span class="line">  score: <span class="number">900</span>,</span><br><span class="line">  __proto__: playerFunctions</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这意味着, <code>player1</code> 和 <code>player2</code> 都可以借助 <code>__proto__</code> 的特性, 直接访问到 <code>playerFunctions</code> 里的属性, 也就是说, 它们都可以执行 <code>setScore</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">player1.setScore(<span class="number">1000</span>);</span><br><span class="line">player2.setScore(<span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+<p>现在我们达到了在<a href="#fatory-function-goal">工厂模式章节的末尾所说的目标</a>, 一个遵守了D.R.Y法则, 同时能访问到数据和方法的对象。</p>
+<p>简单总结本节内容来看, 创建一个存在原型的对象, 我们需要做以下步骤:</p>
+<ol>
+<li>创建一个 <strong>对象B</strong>, 包含处理 <strong>对象A</strong> 数据的方法</li>
+<li>需要通过 <code>Object.create</code> 创建 <strong>对象A</strong>, 同时将 <strong>对象B</strong> 链接到 <strong>对象A</strong> 的 <code>__proto__</code> 上</li>
+<li>我们需要手动给新对象 <strong>对象A</strong> 初始化各种属性(即数据)</li>
+</ol>
+<p>如何让JavaScript本身帮我们做以上这几个步骤中的一些部分呢?</p>
+<h3><span id="new-cao-zuo-fu-yu-gou-zao-han-shu"><code>new</code> 操作符与构造函数</span><a href="#new-cao-zuo-fu-yu-gou-zao-han-shu" class="header-anchor">#</a></h3><p>我们使用 <code>new</code> 操作符即可回答上一问, 但在开始阐述前, 让我们明确一下: 什么是函数?</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double.someProp = <span class="string">'Hi there!'</span>;</span><br><span class="line"></span><br><span class="line">double(<span class="number">5</span>); <span class="comment">// 10</span></span><br><span class="line">double.someProp <span class="comment">// Hi there!</span></span><br><span class="line"></span><br><span class="line">double.prototype <span class="comment">// &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>函数可以由我们定义, 可以通过括号 <code>()</code> 调用。但从上面的例子, 我们可以访问函数的属性, 也可以为函数创建属性, 看上去和普通的对象非常类似, 所以函数可以被当作是一个特殊的对象。</p>
+<h4><span id="prototype-shu-xing"><code>prototype</code> 属性</span><a href="#prototype-shu-xing" class="header-anchor">#</a></h4><p>所有的函数都有 <code>prototype</code> 属性(除了<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Use_of_prototype_property" target="_blank" rel="noopener">箭头函数</a>), 同时重申一下这个小Tips:</p>
+<blockquote>
+<p>Not <code>__proto__</code> or <code>[[Prototype]]</code>, but <code>prototype</code>.</p>
+</blockquote>
+<p>再看回到 <code>new</code> 操作符和构造函数;</p>
+<p>下面的例子展示了编写一个构造函数和使用 <code>new</code> 操作符:</p>
+<p>⚠️ 如果你还没有100%确定你理解了 <code>this</code> 关键字, 你应该去读一读 <a href="https://www.debuggr.io/js-this-in-depth/" target="_blank" rel="noopener">JavaScript - The “this” key word in depth</a><br><sub>(译者注: <a href="https://zhuanlan.zhihu.com/p/23804247" target="_blank" rel="noopener">this 的值到底是什么？</a> 和 <a href="https://zhuanlan.zhihu.com/p/23987456" target="_blank" rel="noopener">JS 的 new 到底是干什么的？</a> 推一下这两篇)</sub></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Player</span>(<span class="params">userName, score</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.userName = userName;</span><br><span class="line">  <span class="keyword">this</span>.score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Player.prototype.setScore = <span class="function"><span class="keyword">function</span>(<span class="params">newScore</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.score = newScore;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = <span class="keyword">new</span> Player(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> player2 = <span class="keyword">new</span> Player(<span class="string">'sarah'</span>, <span class="number">900</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(player1)</span><br><span class="line"><span class="built_in">console</span>.log(player2)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出的内容:</span></span><br><span class="line"></span><br><span class="line">Player &#123;</span><br><span class="line">  userName: <span class="string">"sag1v"</span>,</span><br><span class="line">  score: <span class="number">700</span>,</span><br><span class="line">  __proto__: Player.prototype</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Player &#123;</span><br><span class="line">  userName: <span class="string">"sarah"</span>,</span><br><span class="line">  score: <span class="number">900</span>,</span><br><span class="line">  __proto__: Player.prototype</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="zhu-xing-fen-xi-yi-xia-dai-ma">逐行分析一下代码</span><a href="#zhu-xing-fen-xi-yi-xia-dai-ma" class="header-anchor">#</a></h4><p>我们通过 <code>new</code> 操作符执行了 <code>Player</code> 函数 (提示: 这里将<code>createPlayer</code>重命名为<code>Player</code>仅仅是因为这样符合开发者的约定) , 这也标志着 <code>Player</code> 函数是一个应该通过 <code>new</code> 操作符执行的 <strong>构造函数</strong>。</p>
+<p>当通过 <code>new</code> 操作符执行 <strong>构造函数</strong>, JavaScript帮我们做了这四件事:</p>
+<ol>
+<li>创建一个新的临时对象</li>
+<li>将这个临时对象绑定到 <code>this上下文</code></li>
+<li>帮你绑定原型: 临时对象的 <code>__proto__</code> 指向构造函数的 <code>prototype</code> (即 <code>Player</code> 的 <code>prototype</code>)</li>
+<li>返回这个临时对象</li>
+</ol>
+<p>如果要我们自己来实现上述步骤, 代码看起来会像下面这样:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Player</span>(<span class="params">userName, score</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span> = &#123;&#125; <span class="comment">// ⚠️ done by JavaScript</span></span><br><span class="line">  <span class="keyword">this</span>.__proto__ = Player.prototype <span class="comment">// ⚠️ done by JavaScript</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.userName = userName;</span><br><span class="line">  <span class="keyword">this</span>.score = score;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span> <span class="comment">// ⚠️ done by JavaScript</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中第三行代码: </p>
+<blockquote>
+<p>将临时对象的 <code>__proto__</code> 指向构造函数的 <code>prototype</code></p>
+</blockquote>
+<p>这代表着我们可以把任意函数都挂载到 <code>Player.prototype</code>, 这样新的对象就可以访问到这些函数, 这一步也就是示例中的这行代码: </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Player.prototype.setScore = <span class="function"><span class="keyword">function</span>(<span class="params">newScore</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.score = newScore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是通过构造函数来实现原型链的链接;</p>
+<p>除此之外, 下面代码能确保构造函数是通过 <code>new</code> 操作符来调用的:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Player</span>(<span class="params">username, score</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!(<span class="keyword">this</span> <span class="keyword">instanceof</span> Player))&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Player must be called with new'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ES2015 syntax</span></span><br><span class="line">  <span class="keyword">if</span>(!<span class="keyword">new</span>.target)&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Player must be called with new'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="class">Class</span><a href="#class" class="header-anchor">#</a></h2><p>如果你不喜欢手写工厂模式, 也不中意构造函数, 但是还是想使用 <code>new</code> 操作符, JavaScript 提供了 <code>类(class)</code> (从 ES2015 起), 当然, <code>类</code> 实质上只是一种构造函数的语法糖, 它与其他语言里传统意义上的 <code>类</code> 不一样的地方在于: 它还有着 <code>原型链继承</code></p>
+<p>引用自 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noopener">MDN</a></p>
+<blockquote>
+<p>JavaScript classes, introduced in ECMAScript 2015, are primarily syntactical sugar over JavaScript’s existing prototype-based inheritance. The class syntax does not introduce a new object-oriented inheritance model to JavaScript.</p>
+</blockquote>
+<p>让我们一步步把构造函数转化成 <code>类</code>:</p>
+<h3><span id="sheng-ming-yi-ge-lei">声明一个类</span><a href="#sheng-ming-yi-ge-lei" class="header-anchor">#</a></h3><p>通过 <code>class</code> 关键字来声明 (此处命名和前文中的构造函数一致)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="xie-yi-ge-constructor">写一个constructor</span><a href="#xie-yi-ge-constructor" class="header-anchor">#</a></h3><p>将前文构造函数的内容移植到 <code>constructor</code> 函数内:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(userName, score) &#123;</span><br><span class="line">    <span class="keyword">this</span>.userName = userName;</span><br><span class="line">    <span class="keyword">this</span>.score = score;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="wei-lei-tian-jia-han-shu">为 <code>类</code> 添加函数</span><a href="#wei-lei-tian-jia-han-shu" class="header-anchor">#</a></h3><p>将前文 <code>Player.prototype</code> 里的函数都移植到 <code>类</code> 内:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(userName, score) &#123;</span><br><span class="line">    <span class="keyword">this</span>.userName = userName;</span><br><span class="line">    <span class="keyword">this</span>.score = score;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setScore(newScore) &#123;</span><br><span class="line">    <span class="keyword">this</span>.score = newScore;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下为完整代码: </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(userName, score) &#123;</span><br><span class="line">    <span class="keyword">this</span>.userName = userName;</span><br><span class="line">    <span class="keyword">this</span>.score = score;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setScore(newScore) &#123;</span><br><span class="line">    <span class="keyword">this</span>.score = newScore;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = <span class="keyword">new</span> Player(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> player2 = <span class="keyword">new</span> Player(<span class="string">'sarah'</span>, <span class="number">900</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(player1)</span><br><span class="line"><span class="built_in">console</span>.log(player2)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出与之前的构造函数一致</span></span><br><span class="line"></span><br><span class="line">Player &#123;</span><br><span class="line">  userName: <span class="string">"sag1v"</span>,</span><br><span class="line">  score: <span class="number">700</span>,</span><br><span class="line">  __proto__: Player.prototype</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Player &#123;</span><br><span class="line">  userName: <span class="string">"sarah"</span>,</span><br><span class="line">  score: <span class="number">900</span>,</span><br><span class="line">  __proto__: Player.prototype</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到, <code>类</code> 在原型链上所执行的操作与构造函数并无差别, 仅仅是语法上的区别, 同时 <code>类</code> 自带了是否由 <code>new</code> 调用的验证。</p>
+<h2><span id="ji-cheng">继承</span><a href="#ji-cheng" class="header-anchor">#</a></h2><p>如果想要定义一个特殊的 <code>Player</code>, 他是那种氪金玩家, 解锁了普通 <code>Player</code> 所没有的特性, 比如能修改自己的用户名, 那应该怎么做呢?</p>
+<p>我们可以将我们的需求列出来:</p>
+<ol>
+<li>需要一个普通用户, 他有着 <code>userName</code>, <code>score</code> 属性和 <code>setScore</code> 方法;</li>
+<li>我们也需要一个氪金用户, 他除了普通玩家有的东西外 (即为 <strong>继承</strong> 了普通玩家), 还额外有一个 <code>setUserName</code>方法, 但普通玩家他不充钱就不配有改名的能力😟</li>
+</ol>
+<p>在深入其中前, 先来看一看一直在说的原型链是长什么样的:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double.toString() <span class="comment">// where is this method coming from?</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype <span class="comment">// &#123;toString: f, call: f, bind: f&#125;</span></span><br><span class="line"></span><br><span class="line">double.hasOwnProperty(<span class="string">'name'</span>) <span class="comment">// where is this method coming from?</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.__proto__ <span class="comment">// -&gt; Object.prototype &#123;hasOwnProperty: f&#125;</span></span><br></pre></td></tr></table></figure>
+<p>通过前面的内容, 我们得知了当一个属性在对象本身中不存在时, JavaScript解释器会到对象的 <code>__proto__</code> 中找这个属性, 但如果 <code>__proto__</code> 指向的对象也没有这个属性怎么办呢? 先前我们说明过, 所有对象都有 <code>__proto__</code> 属性, 只要这个对象的 <code>__proto__</code> 的指向不为空, 解释器就会一层一层地找下去, 直到最后一个对象的 <code>__proto__</code> 指向为空 (<code>Object.prototype.__proto__</code> 为空, 大部分都是找到这里为止)</p>
+<p>有一些绕口, 所以这里直接通过两个例子来解释一下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">double.toString()</span><br></pre></td></tr></table></figure>
+<ol>
+<li>首先, <code>double</code> 本身不包含 <code>toString</code> 方法 ✖️;</li>
+<li>去 <code>double.__proto__</code> 中找 <code>toString</code>;</li>
+<li><code>double.__proto__</code> 指向的是 <code>Function.prototype</code>, 它包含了 <code>toString</code> 方法, 查找成功 ✔️;</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">double.hasOwnProperty(<span class="string">'name'</span>)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>double</code> 没有 <code>hasOwnProperty</code> 方法 ✖️;</li>
+<li>去 <code>double.__proto__</code> 找;</li>
+<li><code>double.__proto__</code> 指向的是 <code>Function.prototype</code>;</li>
+<li><code>Function.prototype</code> 没有 <code>hasOwnProperty</code> 方法 ✖️;</li>
+<li>去 <code>Function.prototype.__proto__</code> 中找;</li>
+<li><code>Function.prototype.__proto__</code> 指向的是 <code>Object.prototype</code>;</li>
+<li><code>Object.prototype</code> 包含了 <code>hasOwnProperty</code> 方法, 查找成功 ✔️;</li>
+</ol>
+<p>原文作者po了一个Gif来表现这个过程:</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--ICx1kq90--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/vj4xvfh8h5ycotygt923.gif" alt="原型链查找图示"></p>
+<p>至此, 创建一个氪金玩家的思路在眼前初步形成了, 我们再通过 <strong>对象委托模式</strong>、<strong>构造函数</strong>、<strong>类</strong> 来实现这个需求, 同时可以看到各种模式的特性;</p>
+<p>现在开始深入探索 <strong>继承</strong> 吧 💪</p>
+<h3><span id="dui-xiang-wei-tuo-ji-cheng">对象委托 - 继承</span><a href="#dui-xiang-wei-tuo-ji-cheng" class="header-anchor">#</a></h3><p>对象委托模式的氪金玩家模型的示例代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> playerFunctions = &#123;</span><br><span class="line">  setScore(newScore) &#123;</span><br><span class="line">    <span class="keyword">this</span>.score = newScore;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPlayer</span>(<span class="params">userName, score</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newPlayer = <span class="built_in">Object</span>.create(playerFunctions);</span><br><span class="line">  newPlayer.userName = userName;</span><br><span class="line">  newPlayer.score = score;</span><br><span class="line">  <span class="keyword">return</span> newPlayer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> paidPlayerFunctions = &#123;</span><br><span class="line">  setUserName(newName) &#123;</span><br><span class="line">    <span class="keyword">this</span>.userName = newName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// link paidPlayerFunctions object to createPlayer object</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(paidPlayerFunctions, playerFunctions);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPaidPlayer</span>(<span class="params">userName, score, balance</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> paidPlayer = createPlayer(name, score);</span><br><span class="line">  <span class="comment">// we need to change the pointer here</span></span><br><span class="line">  <span class="built_in">Object</span>.setPrototypeOf(paidPlayer, paidPlayerFunctions);</span><br><span class="line">  paidPlayer.balance = balance;</span><br><span class="line">  <span class="keyword">return</span> paidPlayer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = createPlayer(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> paidPlayer = createPaidPlayer(<span class="string">'sag1v'</span>, <span class="number">700</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(player1)</span><br><span class="line"><span class="built_in">console</span>.log(paidPlayer)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出内容为:</span></span><br><span class="line"></span><br><span class="line">player1 &#123;</span><br><span class="line">  userName: <span class="string">"sag1v"</span>,</span><br><span class="line">  score: <span class="number">700</span>,</span><br><span class="line">  __proto__: playerFunctions &#123;</span><br><span class="line">     setScore: ƒ</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">paidPlayer &#123;</span><br><span class="line">  userName: <span class="string">"sarah"</span>,</span><br><span class="line">  score: <span class="number">900</span>,</span><br><span class="line">  balance: <span class="number">5</span>,</span><br><span class="line">  __proto__: paidPlayerFunctions &#123;</span><br><span class="line">    setUserName: ƒ,</span><br><span class="line">    __proto__: playerFunctions &#123;</span><br><span class="line">      setScore: ƒ</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里 <code>createPlayer</code> 的实现没有任何变化, 而 <code>createPaidPlayer</code> 的实现需要一些小技巧。</p>
+<p>我们使用 <code>createPlayer</code> 来作为 <code>createPaidPlayer</code> 里创建普通用户的内容, 但这样氪金玩家的 <code>__proto__</code> 就错误地指向了普通玩家的 <code>__proto__</code>, 所以我们需要使用 <code>Object.setPrototypeOf</code> 方法来修复它的指向。我们新建了一个对象, 作为氪金玩家修复后需要指向 <code>__proto__</code> 对象, 然后将其作为参数传入 <code>Object.setPrototypeOf</code> 来进行修复; 在示例中, 这个对象就是 <code>paidPlayerFunctions</code>。</p>
+<p>但此时破坏了氪金玩家与 <code>playerFunctions</code> 的链接, 也代表着失去了 <code>setScore</code> 能力; 所以需要重新通过 <code>Object.setPrototypeOf</code> 修复一下 <code>paidPlayerFunctions</code> 与 <code>playerFunctions</code> 的链接。</p>
+<p>对象委托模式中一个两层的原型链的代码以及显得复杂, 四五层的原型链的复杂程度可想而知。</p>
+<h3><span id="gou-zao-han-shu-ji-cheng">构造函数 - 继承</span><a href="#gou-zao-han-shu-ji-cheng" class="header-anchor">#</a></h3><p>现在来试试通过构造函数来实现继承:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Player</span>(<span class="params">userName, score</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.userName = userName;</span><br><span class="line">  <span class="keyword">this</span>.score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Player.prototype.setScore = <span class="function"><span class="keyword">function</span>(<span class="params">newScore</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.score = newScore;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PaidPlayer</span>(<span class="params">userName, score, balance</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.balance = balance;</span><br><span class="line">  <span class="comment">/* 这里不通过 "new" 关键字来调用 "Player"</span></span><br><span class="line"><span class="comment">     我们使用 "call" 方法来替代, 这样能改变 this 的指向</span></span><br><span class="line"><span class="comment">     并且能给各个属性赋值*/</span></span><br><span class="line">  Player.call(<span class="keyword">this</span>, userName, score);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PaidPlayer.prototype.setUserName = <span class="function"><span class="keyword">function</span>(<span class="params">newName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.userName = newName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置Player.prototype 为 PaidPlayer.prototype 的原型</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(PaidPlayer.prototype, Player.prototype);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = <span class="keyword">new</span> Player(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> paidPlayer = <span class="keyword">new</span> PaidPlayer(<span class="string">'sarah'</span>, <span class="number">900</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(player1)</span><br><span class="line"><span class="built_in">console</span>.log(paidPlayer)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出如下:</span></span><br><span class="line"></span><br><span class="line">Player &#123;</span><br><span class="line">  userName: <span class="string">"sag1v"</span>,</span><br><span class="line">  score: <span class="number">700</span>,</span><br><span class="line">  __proto__: Player.prototype &#123;</span><br><span class="line">    setScore: ƒ</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PaidPlayer &#123;</span><br><span class="line">  userName: <span class="string">"sarah"</span>,</span><br><span class="line">  score: <span class="number">900</span>,</span><br><span class="line">  balance: <span class="number">5</span>,</span><br><span class="line">  __proto__: PaidPlayer.prototype:&#123;</span><br><span class="line">    setUserName: ƒ,</span><br><span class="line">    __proto__: Player.prototype &#123;</span><br><span class="line">      setScore: ƒ</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果通过工厂模式, 也能得到相同的结果, 而且有些内容由 <code>new</code> 帮我们做了, 这能节省几行代码, 但这也会带来新的挑战。</p>
+<p>首先第一个挑战就是: 我们通过使用 <code>Player</code> 函数来表现初始化 <code>Player</code> 的逻辑; 但这里的实现却不是使用 <code>new</code> 关键字 (与我们的直觉相悖), 示例里使用了 <code>.call</code> 方法来调用, 这样做的优点是能改变 <code>Player</code> 内this的指向, 以便于对象属性的初始化, 缺点是 <code>Player</code> 不作为构造函数后, 不会自动创建新对象, 也不会自动绑定 <code>this</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PaidPlayer</span>(<span class="params">userName, score, balance</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.balance = balance;</span><br><span class="line">  Player.call(<span class="keyword">this</span>, userName, score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里使用 <code>Player</code> 时, 其内部的 <code>this</code> 指向了 <code>PaidPlayer</code>;</p>
+<p>另一个挑战是, 需要将 <code>PaidPlayer</code> 所返回的实例, 链接到 <code>Player</code> 的实例上, 我们使用 <code>Object.setPrototypeOf</code> 将 <code>Player.prototype</code> 设置为 <code>PaidPlayer.prototype</code> 的原型;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf(PaidPlayer.prototype, Player.prototype);</span><br></pre></td></tr></table></figure>
+<p>如你所见，JavaScript解释器为我们做的事情越多，我们需要编写的代码就越少，但是随着抽象程度的增加，我们理解JavaScript解释器中正在发生的事情会更困难一些。</p>
+<h3><span id="lei-ji-cheng">类 - 继承</span><a href="#lei-ji-cheng" class="header-anchor">#</a></h3><p>使用类，抽象程度能变得更高，这代表着更少的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(userName, score) &#123;</span><br><span class="line">    <span class="keyword">this</span>.userName = userName;</span><br><span class="line">    <span class="keyword">this</span>.score = score;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setScore(newScore) &#123;</span><br><span class="line">    <span class="keyword">this</span>.score = newScore;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PaidPlayer</span> <span class="keyword">extends</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(userName, score, balance) &#123;</span><br><span class="line">    <span class="keyword">super</span>(userName, score);</span><br><span class="line">    <span class="keyword">this</span>.balance = balance;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setUserName(newName) &#123;</span><br><span class="line">    <span class="keyword">this</span>.userName = newName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> player1 = <span class="keyword">new</span> Player(<span class="string">'sag1v'</span>, <span class="number">700</span>);</span><br><span class="line"><span class="keyword">const</span> paidPlayer = <span class="keyword">new</span> PaidPlayer(<span class="string">'sarah'</span>, <span class="number">900</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(player1)</span><br><span class="line"><span class="built_in">console</span>.log(paidPlayer)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出如下: </span></span><br><span class="line"></span><br><span class="line">Player &#123;</span><br><span class="line">  userName: <span class="string">"sag1v"</span>,</span><br><span class="line">  score: <span class="number">700</span>,</span><br><span class="line">  __proto__: Player.prototype &#123;</span><br><span class="line">    setScore: ƒ</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PaidPlayer &#123;</span><br><span class="line">  userName: <span class="string">"sarah"</span>,</span><br><span class="line">  score: <span class="number">900</span>,</span><br><span class="line">  balance: <span class="number">5</span>,</span><br><span class="line">  __proto__: PaidPlayer.prototype:&#123;</span><br><span class="line">    setUserName: ƒ,</span><br><span class="line">    __proto__: Player.prototype &#123;</span><br><span class="line">      setScore: ƒ</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由上可见, 类只是构造函数的一种语法糖🤔</p>
+<p>引用自文档: </p>
+<blockquote>
+<p>JavaScript classes, introduced in ECMAScript 2015, are <strong>primarily</strong> syntactical sugar over JavaScript’s existing prototype-based inheritance…</p>
+</blockquote>
+<p>当使用 <code>extends</code> 关键字时, 为什么需要 <code>super</code> 函数呢?</p>
+<p>回忆一下构造函数章节的这一行”奇怪”代码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Player.call(<span class="keyword">this</span>, userName, score)</span><br></pre></td></tr></table></figure>
+<p>嗯, <code>super(userName, score)</code> 就是在模拟这行代码。</p>
+<p>我们描述的更准确一些: 它使用了ES2015引入的新功能 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/construct" target="_blank" rel="noopener">Reflect.construct</a></p>
+<p>引用自文档:</p>
+<blockquote>
+<p>The static Reflect.construct() method acts like the new operator, but as a function. It is equivalent to calling new target(…args). It gives also the added option to specify a different prototype.</p>
+</blockquote>
+<p>由此以来, 我们就不需要手动去”hack”构造函数了, 而在JavaScript解释器中, <code>super</code> 是通过 <code>Reflect.construct</code> 实现的。同时有一条重要的提示: 当 <code>extends</code> 一个类时, 在 <code>constructor</code> 里, 在 <code>super</code> 函数执行前不能使用 <code>this</code>, 因为此时的 <code>this</code> 还未初始化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PaidPlayer</span> <span class="keyword">extends</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(userName, score, balance) &#123;</span><br><span class="line">    <span class="keyword">super</span>(userName, score);</span><br><span class="line">    <span class="keyword">this</span>.balance = balance;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setUserName(newName) &#123;</span><br><span class="line">    <span class="keyword">this</span>.userName = newName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h2><p>我们学习了几种 <strong>链接对象/数据赋值/绑定逻辑 并将其集中到一起</strong> 的方法, 我们也了解到了 <code>JavaScript/原型链/多层原型链</code> 的 “继承”。</p>
+<p>经过各种例子的再三体会，越是抽象，我们就会得到更多的 “东西”, 越少的代码，但这使我们更难跟踪代码的变化。</p>
+<p>每一种模式都有其有点和缺点:</p>
+<ul>
+<li><code>Object.create</code> 需要写更多的代码, 在多层继承中显得复杂且无聊, 但能得到对象上更细粒度的控制;</li>
+<li>构造函数能通过JavaScript自动赋值, 但代码可能会有些反常, 还需要对调用是否通过 <code>new</code> 的验证, 否则会遇到一些奇怪的Bug, 多层继承同样不是很乐观;</li>
+<li>使用类，我们可以获得更简洁的语法，并有了 <code>new</code> 调用的内置检查。当 “继承” 时，类由于其语法糖特性最吸引人，只需使用 <code>extended</code> 关键字并调用 <code>super()</code>，而不会像其他方法那样陷入循环。语法也更接近于其他语言，并且比较容易学习。而Javascript的类与其他语言中的类非常不同，它仍然使用旧的“原型继承”，上面有很多抽象层, 这样应该是它的缺点了吧。</li>
+</ul>
+<h2><span id="yi-zhe-zhu">译者注</span><a href="#yi-zhe-zhu" class="header-anchor">#</a></h2><p>原作者的更多文章请访问 <a href="https://www.debuggr.io/" target="_blank" rel="noopener">debuggr.io</a></p>
+<p>关于原型链, 本文原作者的心智模型与 <a href="https://zhuanlan.zhihu.com/p/87667349" target="_blank" rel="noopener">工业聚 - 深入理解 JavaScript 原型</a> 所述基本是不同的, 建议同时参阅工业聚的文章, 来从一个更广的视角和更细节的实现来看待和学习原型链。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/30/计算机系统-day-1-md/" rel="next" title="计算机系统-day-1.md">
+                <i class="fa fa-chevron-left"></i> 计算机系统-day-1.md
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">biglion</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Big7lion" title="GitHub &rarr; https://github.com/Big7lion" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:biglion77@outlook.com" title="E-Mail &rarr; mailto:biglion77@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">我们的目标#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">对象#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.</span> <span class="nav-text">Object Literal 对象字面量#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.2.</span> <span class="nav-text">Object.create#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">更加自动化#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">Factory Functions 工厂函数#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.2.</span> <span class="nav-text">OLOO - Objects Linked To Other Objects 对象委托#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.</span> <span class="nav-text">new 操作符与构造函数#</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.1.</span> <span class="nav-text">prototype 属性#</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.2.</span> <span class="nav-text">逐行分析一下代码#</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">Class#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.1.</span> <span class="nav-text">声明一个类#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.2.</span> <span class="nav-text">写一个constructor#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.3.</span> <span class="nav-text">为 类 添加函数#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">继承#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">7.1.</span> <span class="nav-text">对象委托 - 继承#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">7.2.</span> <span class="nav-text">构造函数 - 继承#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">7.3.</span> <span class="nav-text">类 - 继承#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">总结#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">9.</span> <span class="nav-text">译者注#</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">biglion</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
