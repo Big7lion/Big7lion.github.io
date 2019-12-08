@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 不存在的监控   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世界">
+  <meta name="description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 分析工具的限制   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世">
 <meta name="keywords" content="GraphQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rest与GraphQL的对比（译）">
 <meta property="og:url" content="http://yoursite.com/2019/12/08/Rest与GraphQL的对比/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
-<meta property="og:description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 不存在的监控   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世界">
+<meta property="og:description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 分析工具的限制   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-08T12:55:04.391Z">
+<meta property="og:updated_time" content="2019-12-08T12:56:29.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rest与GraphQL的对比（译）">
-<meta name="twitter:description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 不存在的监控   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世界">
+<meta name="twitter:description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 分析工具的限制   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世">
 
 
 
@@ -369,7 +369,7 @@
                 
               
 
-              <time title="创建时间：2019-12-08 02:41:25 / 修改时间：20:55:04" itemprop="dateCreated datePublished" datetime="2019-12-08T02:41:25+08:00">2019-12-08</time>
+              <time title="创建时间：2019-12-08 02:41:25 / 修改时间：20:56:29" itemprop="dateCreated datePublished" datetime="2019-12-08T02:41:25+08:00">2019-12-08</time>
             
 
             
@@ -444,7 +444,7 @@
 <li><a href="#jian-shao-wu-gong-xiang-de-jia-gou">减少无共享的架构</a></li>
 <li><a href="#bao-lu-ren-yi-qing-qiu">暴露任意请求</a></li>
 <li><a href="#cha-xun-de-gu-ding-xing">查询的固定性</a></li>
-<li><a href="#bu-cun-zai-de-jian-kong">不存在的监控</a></li>
+<li><a href="#fen-xi-gong-ju-de-xian-zhi">分析工具的限制</a></li>
 </ul>
 </li>
 <li><a href="#zong-jie">总结</a></li>
@@ -481,7 +481,7 @@
 <h3><span id="jian-shao-wu-gong-xiang-de-jia-gou">减少无共享的架构</span><a href="#jian-shao-wu-gong-xiang-de-jia-gou" class="header-anchor">#</a></h3><p>RESTful API的美妙之处在于，它们很好地补充了<a href="https://en.wikipedia.org/wiki/Shared-nothing_architecture" target="_blank" rel="noopener">无共享架构</a>。举例来说，假定我们有一个<code>api.moesif.com/v1/search</code>节点和一个<code>api.moesif.com/v1/alerting</code>节点，对外来看，这两个节点看起来请求的是两个完全不同的REST资源，而对内来看，它们指向了两个在不同集群上的微服务节点。搜索服务是使用Scala构建的，警告服务是使用NodeJs编写的。通过Host或URL路由触发一个HTTP请求的复杂性比检查一个GraphQL查询和执行多个连接要低的多。</p>
 <h3><span id="bao-lu-ren-yi-qing-qiu">暴露任意请求</span><a href="#bao-lu-ren-yi-qing-qiu" class="header-anchor">#</a></h3><p>尽管GraphQL的主要优点是使客户端能够只查询所需的数据，但是这也会导致问题：尤其是对于那些允许第三方客户端查询的开放式API，而这些查询行为是无法控制和预测，所以我们必须格外小心，以确保GraphQL查询不会导致昂贵的联接查询，从而降低服务器性能，甚至降低服务器的DDoS性能。而RESTful API可以限制只使用匹配使用的数据模型和索引。</p>
 <h3><span id="cha-xun-de-gu-ding-xing">查询的固定性</span><a href="#cha-xun-de-gu-ding-xing" class="header-anchor">#</a></h3><p>GraphQL去掉了在API之上进行自定义查询DSL或副作用操作的功能。 例如，Elasticsearch API是RESTful，但也具有非常强大的Elasticsearch DSL，可以执行高级聚合和指标计算。而在GraphQL语言中，这样的聚合查询可能更难建模。</p>
-<h3><span id="bu-cun-zai-de-jian-kong">不存在的监控</span><a href="#bu-cun-zai-de-jian-kong" class="header-anchor">#</a></h3><p>RESTful api的优点在于，它在资源方面与网站一样遵循HTTP规范。这使得许多工具能够探测URL，比如<code>api.moesif.com/health</code>，如果不确定，它将返回5xx。对于GraphQL api，你可能无法利用这些工具，除非您支持将查询作为URL参数，因为大多数ping工具不支持HTTP和请求主体。</p>
+<h3><span id="fen-xi-gong-ju-de-xian-zhi">分析工具的限制</span><a href="#fen-xi-gong-ju-de-xian-zhi" class="header-anchor">#</a></h3><p>RESTful api的优点在于，它在资源方面与网站一样遵循HTTP规范。这使得许多工具能够探测URL，比如<code>api.moesif.com/health</code>，如果不确定，它将返回5xx。对于GraphQL api，你可能无法利用这些工具，除非您支持将查询作为URL参数，因为大多数ping工具不支持HTTP和请求主体。</p>
 <p>除了ping服务外，很少有支持API分析或对API调用进行更深入分析的SaaS或开源工具。客户端错误在GraphQL API中显示为200 OK。现有的工具会出现400错误，因此无法使用，因此您可能会错过捕获API上发生的错误。也就是说赋予客户端更多的灵活性的同时需要更多的工具来捕获和理解API问题。</p>
 <h2><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h2><p>GraphQL API可能是令人兴奋的新技术，但是在做出使用这种体系结构的决策之前，权衡利弊是很重要的。 某些API（例如，那些实体很少且跨实体的关系的API）（例如分析API）可能不适合GraphQL。 而具有许多不同领域对象（例如电子商务）的应用程序则更适合使用GraphQL。</p>
 <p>实际上，GraphQL与REST的比较就像比较SQL技术与noSQL。 在某些应用程序中，有必要在SQL DB 中对复杂实体建模。 而其他仅具有“消息”功能的应用程序（如唯一的实体是“事件”的大容量聊天应用程序或分析API）可能更适合使用Cassandra之类的东西。</p>
@@ -719,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">API的发展历史#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">如今的RESTful#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">REST的问题#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">从后端实现考虑#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.2.</span> <span class="nav-text">获取多个资源#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.</span> <span class="nav-text">更深层的分析#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">GraphQL的问题#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.1.</span> <span class="nav-text">缓存#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.2.</span> <span class="nav-text">减少无共享的架构#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.3.</span> <span class="nav-text">暴露任意请求#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.4.</span> <span class="nav-text">查询的固定性#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.5.</span> <span class="nav-text">不存在的监控#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">总结#</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">API的发展历史#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">如今的RESTful#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">REST的问题#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">从后端实现考虑#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.2.</span> <span class="nav-text">获取多个资源#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.</span> <span class="nav-text">更深层的分析#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">GraphQL的问题#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.1.</span> <span class="nav-text">缓存#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.2.</span> <span class="nav-text">减少无共享的架构#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.3.</span> <span class="nav-text">暴露任意请求#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.4.</span> <span class="nav-text">查询的固定性#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.5.</span> <span class="nav-text">分析工具的限制#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">总结#</span></a></li></ol></div>
             
 
           </div>
