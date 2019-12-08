@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 不存在的监控   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世界">
+<meta name="keywords" content="GraphQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rest与GraphQL的对比（译）">
+<meta property="og:url" content="http://yoursite.com/2019/12/08/Rest与GraphQL的对比/index.html">
+<meta property="og:site_name" content="Big7lion&#39;s Page">
+<meta property="og:description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 不存在的监控   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世界">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-08T12:55:04.391Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rest与GraphQL的对比（译）">
+<meta name="twitter:description" content="目录    简介 API的发展历史 如今的RESTful REST的问题 从后端实现考虑 获取多个资源 更深层的分析   GraphQL的问题 缓存 减少无共享的架构 暴露任意请求 查询的固定性 不存在的监控   总结     简介本文翻译自 REST vs GraphQL APIs, the Good, the Bad, the Ugly 自从Facebook发布GraphQL以来，在API世界">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/12/08/Rest与GraphQL的对比/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Rest与GraphQL的对比（译） | Big7lion's Page</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Big7lion's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/Rest与GraphQL的对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="biglion">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/21300991?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Big7lion's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Rest与GraphQL的对比（译）
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-08 02:41:25 / 修改时间：20:55:04" itemprop="dateCreated datePublished" datetime="2019-12-08T02:41:25+08:00">2019-12-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#jian-jie">简介</a></li>
+<li><a href="#api-de-fa-zhan-li-shi">API的发展历史</a></li>
+<li><a href="#ru-jin-de-restful">如今的RESTful</a></li>
+<li><a href="#rest-de-wen-ti">REST的问题</a><ul>
+<li><a href="#cong-hou-duan-shi-xian-kao-lu">从后端实现考虑</a></li>
+<li><a href="#huo-qu-duo-ge-zi-yuan">获取多个资源</a></li>
+<li><a href="#geng-shen-ceng-de-fen-xi">更深层的分析</a></li>
+</ul>
+</li>
+<li><a href="#graphql-de-wen-ti">GraphQL的问题</a><ul>
+<li><a href="#huan-cun">缓存</a></li>
+<li><a href="#jian-shao-wu-gong-xiang-de-jia-gou">减少无共享的架构</a></li>
+<li><a href="#bao-lu-ren-yi-qing-qiu">暴露任意请求</a></li>
+<li><a href="#cha-xun-de-gu-ding-xing">查询的固定性</a></li>
+<li><a href="#bu-cun-zai-de-jian-kong">不存在的监控</a></li>
+</ul>
+</li>
+<li><a href="#zong-jie">总结</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>本文翻译自 <a href="https://dev.to/xngwng/rest-vs-graphql-apis-the-good-the-bad-the-ugly-34i8" target="_blank" rel="noopener">REST vs GraphQL APIs, the Good, the Bad, the Ugly</a></p>
+<p>自从Facebook发布GraphQL以来，在API世界中引起了一股 “用GraphQL替换REST” 的潮流。GraphQL确实解决了RESTful结构在开发中出现的诸多问题，但与之相对的，也带来了一揽子需要我们提前评估的风险。</p>
+<p>GraphQL不只是 RESTful API 的简单的发展式迭代式的替换，所以本篇文章将详细阐述GraphQl的优缺点，以及什么样的项目适合使用GraphQL。</p>
+<a id="more"></a>
+<h2><span id="api-de-fa-zhan-li-shi">API的发展历史</span><a href="#api-de-fa-zhan-li-shi" class="header-anchor">#</a></h2><p>在RESTful API以前，有<a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="noopener">RPC</a>、<a href="https://en.wikipedia.org/wiki/SOAP" target="_blank" rel="noopener">SOAP</a>、<a href="https://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture" target="_blank" rel="noopener">CORBA</a>以及其他各种小众的协议，这些古老的协议大多需要复杂的库支持来进行传递信息的序列化和反序列化。例如，与如今的RESTful API相比，SOAP其根本的差异在于它使用了一种叫做 WSDL(Web Services Description Language 网络服务描述语言)的强约定式的声明来进行类型约束，但这在从32位客户端接受64位上游节点传来的信息时，可能导致信息完全被破坏，这无疑是一场灾难。同时，SOAP不是一种技术架构，而是一个包含安全性、错误处理、<a href="https://en.wikipedia.org/wiki/ACID" target="_blank" rel="noopener">ACID事物</a>等等内容的协议的完整实现。而过多的抽象层导致了SOAP的复杂性，比如它能在HTTP层、TCP层、UDP层等等协议层上运行。但这种过多的抽象（在协议实现的层面上），也意味着一个应用的客户端和服务端，在数据层面产生了强耦合。</p>
+<p><a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank" rel="noopener">RESTful</a>是在2000年左右由<a href="https://en.wikipedia.org/wiki/Roy_Fielding" target="_blank" rel="noopener">Roy Fielding</a>在一篇博士论文中提出的，它是一种更为简洁的、只在http协议层使用的、无状态无类型的技术架构，这使得系统之间的耦合性大大降低，容错率大大提升。</p>
+<h2><span id="ru-jin-de-restful">如今的RESTful</span><a href="#ru-jin-de-restful" class="header-anchor">#</a></h2><p>在开发API以及搭建应用中，REST API已经成为了约定俗成上的标准。REST的优雅之处在于前端开发者并不需要额外安装库或是初始化配置，请求通过简单的cURL或是浏览即可完成。</p>
+<p>REST使用了标准的CURD Http语句(GET, POST, PUT, DELETE)，并通过http约定来做到以数据为中心，而不是与协议去对抗。因此通过API <code>api.acmestore.com/items</code> 去操作一个电商信息，同通过API <code>api.examplebank.com/deposits</code> 去操作一个银行信息并无太大差别。这两者都需要进行CURD来操作资源，也可能更倾向于去cache操作的结果（也就是说 <code>api.acmestore.com/items</code> 和 <code>api.examplebank.com/deposits</code> 都会被cache），第三方开发者接触一个新API只需要大致了解这个资源的数据模型，剩余的就都交给RESTful的http约定即可，这样就能摆脱SOAP等那些旧方式需要深入了解成千上万个操作的窘境。换句话来说，REST同SOAP比起来，与http约定的绑定更为紧密，但提供了更为宽松的数据约定。</p>
+<h2><span id="rest-de-wen-ti">REST的问题</span><a href="#rest-de-wen-ti" class="header-anchor">#</a></h2><p>随着越来越多的API被投入到生产生产环境中，并扩展到极限级别，RESTful架构中的某些问题出现了。在这种情况下，你可以将GraphQL视为一种介于SOAP和REST之间方案，从两者中各取了一部分。</p>
+<h3><span id="cong-hou-duan-shi-xian-kao-lu">从后端实现考虑</span><a href="#cong-hou-duan-shi-xian-kao-lu" class="header-anchor">#</a></h3><p>在RESTful API中，服务器的响应是返回这个资源格式化后的数据。</p>
+<p>但是，当客户端请求的是一些特定的东西，比如返回一个用户朋友的朋友的名字(他们的工作都是工程师)，该怎么办呢？</p>
+<p>在REST中，你可能会这样写：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET api.example.com/users/123?include=friend.friend.name&amp;friend.friend.ocupation=engineer</span><br></pre></td></tr></table></figure>
+<p>而在GraphQL中，允许你像这样编写请求的内容描述：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> user(id: <span class="number">123</span>) &#123;</span><br><span class="line">   friends &#123;</span><br><span class="line">     friends(job: <span class="string">"engineer"</span>) &#123;</span><br><span class="line">       name</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="huo-qu-duo-ge-zi-yuan">获取多个资源</span><a href="#huo-qu-duo-ge-zi-yuan" class="header-anchor">#</a></h3><p>获取的信息相比REST有更少的冗余是GraphQL的主要优点之一，我们可能都经历过需要首先通过 <code>GET /user</code>来获取每个用户的基本信息，然后逐个去请求如 <code>GET /user/:id/friend/:id</code>这样的节点来获取每个朋友的具体信息，这会导致<a href="https://zhuanlan.zhihu.com/p/27323883" target="_blank" rel="noopener">N+1问题</a>，换句话来说，RESTful API在获取到最终的结果前，需要进行一连串链式的请求，而GraphQL能让服务器在一个请求中即能返回你所需要的数据；</p>
+<h3><span id="geng-shen-ceng-de-fen-xi">更深层的分析</span><a href="#geng-shen-ceng-de-fen-xi" class="header-anchor">#</a></h3><p>API分析对于GraphQL来说也是一个负面因素，因为目前相关的工具并不多。但支持GraphQL api的工具可以提供比RESTful api更多的信息。</p>
+<h2><span id="graphql-de-wen-ti">GraphQL的问题</span><a href="#graphql-de-wen-ti" class="header-anchor">#</a></h2><h3><span id="huan-cun">缓存</span><a href="#huan-cun" class="header-anchor">#</a></h3><p>RESTful API可以利用HTTP规范中内置的缓存。与缓存相关的GET和POST语义定义很清晰，能较好的支持浏览器缓存、代理层和服务器框架，以下是一些相关准则：</p>
+<ul>
+<li>GET请求可被缓存</li>
+<li>GET请求存在于浏览器历史中</li>
+<li>GET请求可能书签化标记</li>
+<li>GET请求是幂等的</li>
+</ul>
+<p>GraphQL不遵循HTTP规范进行缓存，而是使用单个端点。因此，由开发者负责确保非可变、可缓存的查询正确实现了缓存。</p>
+<p>虽然你可以使用像Relay或Dataloader这样辅助理解GraphQL语义的工具，但仍然不能涵盖浏览器和移动缓存等内容。</p>
+<h3><span id="jian-shao-wu-gong-xiang-de-jia-gou">减少无共享的架构</span><a href="#jian-shao-wu-gong-xiang-de-jia-gou" class="header-anchor">#</a></h3><p>RESTful API的美妙之处在于，它们很好地补充了<a href="https://en.wikipedia.org/wiki/Shared-nothing_architecture" target="_blank" rel="noopener">无共享架构</a>。举例来说，假定我们有一个<code>api.moesif.com/v1/search</code>节点和一个<code>api.moesif.com/v1/alerting</code>节点，对外来看，这两个节点看起来请求的是两个完全不同的REST资源，而对内来看，它们指向了两个在不同集群上的微服务节点。搜索服务是使用Scala构建的，警告服务是使用NodeJs编写的。通过Host或URL路由触发一个HTTP请求的复杂性比检查一个GraphQL查询和执行多个连接要低的多。</p>
+<h3><span id="bao-lu-ren-yi-qing-qiu">暴露任意请求</span><a href="#bao-lu-ren-yi-qing-qiu" class="header-anchor">#</a></h3><p>尽管GraphQL的主要优点是使客户端能够只查询所需的数据，但是这也会导致问题：尤其是对于那些允许第三方客户端查询的开放式API，而这些查询行为是无法控制和预测，所以我们必须格外小心，以确保GraphQL查询不会导致昂贵的联接查询，从而降低服务器性能，甚至降低服务器的DDoS性能。而RESTful API可以限制只使用匹配使用的数据模型和索引。</p>
+<h3><span id="cha-xun-de-gu-ding-xing">查询的固定性</span><a href="#cha-xun-de-gu-ding-xing" class="header-anchor">#</a></h3><p>GraphQL去掉了在API之上进行自定义查询DSL或副作用操作的功能。 例如，Elasticsearch API是RESTful，但也具有非常强大的Elasticsearch DSL，可以执行高级聚合和指标计算。而在GraphQL语言中，这样的聚合查询可能更难建模。</p>
+<h3><span id="bu-cun-zai-de-jian-kong">不存在的监控</span><a href="#bu-cun-zai-de-jian-kong" class="header-anchor">#</a></h3><p>RESTful api的优点在于，它在资源方面与网站一样遵循HTTP规范。这使得许多工具能够探测URL，比如<code>api.moesif.com/health</code>，如果不确定，它将返回5xx。对于GraphQL api，你可能无法利用这些工具，除非您支持将查询作为URL参数，因为大多数ping工具不支持HTTP和请求主体。</p>
+<p>除了ping服务外，很少有支持API分析或对API调用进行更深入分析的SaaS或开源工具。客户端错误在GraphQL API中显示为200 OK。现有的工具会出现400错误，因此无法使用，因此您可能会错过捕获API上发生的错误。也就是说赋予客户端更多的灵活性的同时需要更多的工具来捕获和理解API问题。</p>
+<h2><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h2><p>GraphQL API可能是令人兴奋的新技术，但是在做出使用这种体系结构的决策之前，权衡利弊是很重要的。 某些API（例如，那些实体很少且跨实体的关系的API）（例如分析API）可能不适合GraphQL。 而具有许多不同领域对象（例如电子商务）的应用程序则更适合使用GraphQL。</p>
+<p>实际上，GraphQL与REST的比较就像比较SQL技术与noSQL。 在某些应用程序中，有必要在SQL DB 中对复杂实体建模。 而其他仅具有“消息”功能的应用程序（如唯一的实体是“事件”的大容量聊天应用程序或分析API）可能更适合使用Cassandra之类的东西。</p>
+<p>完。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GraphQL/" rel="tag"># GraphQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/23/prototype-chain/" rel="next" title="深入JavaScript的原型链系统（译）.md">
+                <i class="fa fa-chevron-left"></i> 深入JavaScript的原型链系统（译）.md
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/21300991?s=460&v=4" alt="biglion">
+            
+              <p class="site-author-name" itemprop="name">biglion</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Big7lion" title="GitHub &rarr; https://github.com/Big7lion" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:biglion77@outlook.com" title="E-Mail &rarr; mailto:biglion77@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">API的发展历史#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">如今的RESTful#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">REST的问题#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">从后端实现考虑#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.2.</span> <span class="nav-text">获取多个资源#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.</span> <span class="nav-text">更深层的分析#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">GraphQL的问题#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.1.</span> <span class="nav-text">缓存#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.2.</span> <span class="nav-text">减少无共享的架构#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.3.</span> <span class="nav-text">暴露任意请求#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.4.</span> <span class="nav-text">查询的固定性#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">6.5.</span> <span class="nav-text">不存在的监控#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">总结#</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">biglion</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
