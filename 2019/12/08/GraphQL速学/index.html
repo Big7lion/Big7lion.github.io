@@ -96,18 +96,26 @@
 
 
 
-  <meta name="description" content="目录    简介 正文 信息位 + 上下文 文本到可执行 硬件组成 进程 线程 Amdahal       简介开始学习《深入理解计算机系统》，目标是为了过一次计算机专业学科的基础内容，此系列仅作笔记，作为知识提纲； 此书主要内容关于 链接、加载、进程、信号、性能优化、虚拟内存、I/O以及网络编程 等相关内容， 共有：3部分 12章 733页； 本篇主要记录 第1章： 计算机系统漫游 的一些小知识">
-<meta name="keywords" content="computer science">
+  <meta name="description" content="目录    简介 1 - GraphQL是如何生效的 2 - GraphQL的数据请求与交换流程 GraphQL Schema 4 - 参数 5 - Alias 别名 6 - Fragment 帧 7 - Variable 变量 8 - Interface 接口 9 - Mutation 数据变动 10 - Subscription 订阅     简介本文译自 🔥 GraphQL Crash C">
+<meta name="keywords" content="GraphQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机系统-day-1.md">
-<meta property="og:url" content="http://yoursite.com/2019/09/30/计算机系统-day-1-md/index.html">
+<meta property="og:title" content="GraphQL速学（译）">
+<meta property="og:url" content="http://yoursite.com/2019/12/08/GraphQL速学/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
-<meta property="og:description" content="目录    简介 正文 信息位 + 上下文 文本到可执行 硬件组成 进程 线程 Amdahal       简介开始学习《深入理解计算机系统》，目标是为了过一次计算机专业学科的基础内容，此系列仅作笔记，作为知识提纲； 此书主要内容关于 链接、加载、进程、信号、性能优化、虚拟内存、I/O以及网络编程 等相关内容， 共有：3部分 12章 733页； 本篇主要记录 第1章： 计算机系统漫游 的一些小知识">
+<meta property="og:description" content="目录    简介 1 - GraphQL是如何生效的 2 - GraphQL的数据请求与交换流程 GraphQL Schema 4 - 参数 5 - Alias 别名 6 - Fragment 帧 7 - Variable 变量 8 - Interface 接口 9 - Mutation 数据变动 10 - Subscription 订阅     简介本文译自 🔥 GraphQL Crash C">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-17T19:13:37.659Z">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--vjZTnUne--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/ZalpOf7.png">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--qHf1ZKI---/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/cIqFAw8.png">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--CZjzqZGP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/zyTgxJr.png">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--935Qw87k--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/CZ9IXJ1.png">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--gfUVjYpr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/R2W9Kax.png">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--w0VCqbSW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/guzWD0X.png">
+<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--gZ9G3-75--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/XZ5jtC2.png">
+<meta property="og:updated_time" content="2019-12-08T14:09:12.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算机系统-day-1.md">
-<meta name="twitter:description" content="目录    简介 正文 信息位 + 上下文 文本到可执行 硬件组成 进程 线程 Amdahal       简介开始学习《深入理解计算机系统》，目标是为了过一次计算机专业学科的基础内容，此系列仅作笔记，作为知识提纲； 此书主要内容关于 链接、加载、进程、信号、性能优化、虚拟内存、I/O以及网络编程 等相关内容， 共有：3部分 12章 733页； 本篇主要记录 第1章： 计算机系统漫游 的一些小知识">
+<meta name="twitter:title" content="GraphQL速学（译）">
+<meta name="twitter:description" content="目录    简介 1 - GraphQL是如何生效的 2 - GraphQL的数据请求与交换流程 GraphQL Schema 4 - 参数 5 - Alias 别名 6 - Fragment 帧 7 - Variable 变量 8 - Interface 接口 9 - Mutation 数据变动 10 - Subscription 订阅     简介本文译自 🔥 GraphQL Crash C">
+<meta name="twitter:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--vjZTnUne--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/ZalpOf7.png">
 
 
 
@@ -115,7 +123,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/09/30/计算机系统-day-1-md/">
+  <link rel="canonical" href="http://yoursite.com/2019/12/08/GraphQL速学/">
 
 
 
@@ -125,7 +133,7 @@
   };
 </script>
 
-  <title>计算机系统-day-1.md | Big7lion's Page</title>
+  <title>GraphQL速学（译） | Big7lion's Page</title>
   
 
 
@@ -326,7 +334,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/30/计算机系统-day-1-md/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/GraphQL速学/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="biglion">
@@ -343,7 +351,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">计算机系统-day-1.md
+          <h2 class="post-title" itemprop="name headline">GraphQL速学（译）
 
               
             
@@ -369,24 +377,12 @@
                 
               
 
-              <time title="创建时间：2019-09-30 00:11:36" itemprop="dateCreated datePublished" datetime="2019-09-30T00:11:36+08:00">2019-09-30</time>
+              <time title="创建时间：2019-12-08 21:32:54 / 修改时间：22:09:12" itemprop="dateCreated datePublished" datetime="2019-12-08T21:32:54+08:00">2019-12-08</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-10-18 03:13:37" itemprop="dateModified" datetime="2019-10-18T03:13:37+08:00">2019-10-18</time>
               
             
           </span>
@@ -403,7 +399,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/读书/" itemprop="url" rel="index"><span itemprop="name">读书</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a></span>
 
                 
                 
@@ -443,90 +439,77 @@
 <!-- toc -->
 <ul>
 <li><a href="#jian-jie">简介</a></li>
-<li><a href="#zheng-wen">正文</a><ul>
-<li><a href="#xin-xi-wei-shang-xia-wen">信息位 + 上下文</a></li>
-<li><a href="#wen-ben-dao-ke-zhi-xing">文本到可执行</a></li>
-<li><a href="#ying-jian-zu-cheng">硬件组成</a></li>
-<li><a href="#jin-cheng">进程</a></li>
-<li><a href="#xian-cheng">线程</a></li>
-<li><a href="#amdahal">Amdahal</a></li>
-</ul>
-</li>
+<li><a href="#1-graphql-shi-ru-he-sheng-xiao-de">1 - GraphQL是如何生效的</a></li>
+<li><a href="#2-graphql-de-shu-ju-qing-qiu-yu-jiao-huan-liu-cheng">2 - GraphQL的数据请求与交换流程</a></li>
+<li><a href="#graphql-schema">GraphQL Schema</a></li>
+<li><a href="#4-can-shu">4 - 参数</a></li>
+<li><a href="#5-alias-bie-ming">5 - Alias 别名</a></li>
+<li><a href="#6-fragment-zheng">6 - Fragment 帧</a></li>
+<li><a href="#7-variable-bian-liang">7 - Variable 变量</a></li>
+<li><a href="#8-interface-jie-kou">8 - Interface 接口</a></li>
+<li><a href="#9-mutation-shu-ju-bian-dong">9 - Mutation 数据变动</a></li>
+<li><a href="#10-subscription-ding-yue">10 - Subscription 订阅</a></li>
 </ul>
 <!-- tocstop -->
 </div>
 
-<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>开始学习《深入理解计算机系统》，目标是为了过一次计算机专业学科的基础内容，此系列仅作笔记，作为知识提纲；</p>
-<p>此书主要内容关于 <strong>链接、加载、进程、信号、性能优化、虚拟内存、I/O以及网络编程</strong> 等相关内容， 共有：3部分 12章 733页；</p>
-<p>本篇主要记录 <strong>第1章： 计算机系统漫游</strong> 的一些小知识点；</p>
+<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>本文译自 <a href="https://dev.to/hexrcs/graphql-crash-course-in-10-pics-3b04" target="_blank" rel="noopener">🔥 GraphQL Crash Course (in 10 pics!)</a></p>
+<p>👇 以下是GraphQL的十张图十分钟速成！ 🥳</p>
 <a id="more"></a>
-<h2><span id="zheng-wen">正文</span><a href="#zheng-wen" class="header-anchor">#</a></h2><p>并发是： 希望 + 陷阱 （特别是在单芯片多处理器的情况下）</p>
-<h3><span id="xin-xi-wei-shang-xia-wen">信息位 + 上下文</span><a href="#xin-xi-wei-shang-xia-wen" class="header-anchor">#</a></h3><p>ASCII码： a - 97，\n - 10</p>
-<p>在不同的上下文中，一个同样的字节序列代表的含义不同；</p>
-<blockquote>
-<p>tips: 书籍 - <a href="https://book.douban.com/review/1005566/" target="_blank" rel="noopener">K&amp;R</a>： C-指导与标准库示例</p>
-</blockquote>
-<h3><span id="wen-ben-dao-ke-zhi-xing">文本到可执行</span><a href="#wen-ben-dao-ke-zhi-xing" class="header-anchor">#</a></h3><div id="flowchart-0" class="flow-chart"></div>
+<h2><span id="1-graphql-shi-ru-he-sheng-xiao-de">1 - GraphQL是如何生效的</span><a href="#1-graphql-shi-ru-he-sheng-xiao-de" class="header-anchor">#</a></h2><p>GraphQL 是一种用于发起高弹性API请求的查询语言；</p>
+<p>我们使用嵌套字段描述我们在单个请求中想要的内容，然后我们将准确地接收到符合我们预期的数据。</p>
+<p>这也代表着，我们不需要通过多个小的请求来将数据缝在一起，并避免了在请求中获得多余的部分；</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--vjZTnUne--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/ZalpOf7.png" alt="GraphQL是如何生效的"></p>
+<h2><span id="2-graphql-de-shu-ju-qing-qiu-yu-jiao-huan-liu-cheng">2 - GraphQL的数据请求与交换流程</span><a href="#2-graphql-de-shu-ju-qing-qiu-yu-jiao-huan-liu-cheng" class="header-anchor">#</a></h2><p>GraphQL是一种语言标准而不是一个library；</p>
+<p>我们以POST或GET请求的形式发送结构化查询，服务器检查它们在预定义的Schema中是否有效，然后运行相应的解析函数来执行操作，最后将数据返回给客户端。</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--qHf1ZKI---/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/cIqFAw8.png" alt="GraphQL的数据请求与交换流程"></p>
+<h2><span id="graphql-schema">GraphQL Schema</span><a href="#graphql-schema" class="header-anchor">#</a></h2><p>GraphQL Schema定义了有效查询的结构和查询的返回数据类型，它是客户端和服务器用来通信的协议。</p>
+<p>它们是强类型的，可以嵌套；除了最常见的 “对象” 类型之外，该模式还支持union、enum、interfaces等。</p>
+<p>There are 3 operation types in GraphQL - query, mutation, or subscription. query is the most commonly used operation.<br>GraphQL中有3种操作类型 — <code>query</code>、<code>mutation</code> 和 <code>subscription</code>。<code>query</code>是最常用的操作。</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--CZjzqZGP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/zyTgxJr.png" alt="GraphQL Schema"></p>
+<h2><span id="4-can-shu">4 - 参数</span><a href="#4-can-shu" class="header-anchor">#</a></h2><p>GraphQL查询允许我们传入参数以获得过滤后的结果，所有有效的参数的定义都在 Schema 中。</p>
+<p>在后端，我们需要定义相应的解析器来满足这些条件查询。</p>
+<div class="note warning">
+            <p>注意: GraphQL在SQL中没有内置比较运算符，类似 &gt; 或TOP, LIMIT这样的函数！这些附加功能必须在解析器中实现。不过不用担心，大多数GraphQL框架已经附带了这些工具类解析器。 </p>
+          </div>
 
-<h3><span id="ying-jian-zu-cheng">硬件组成</span><a href="#ying-jian-zu-cheng" class="header-anchor">#</a></h3><ul>
-<li>总线<ul>
-<li>传送定长的字节块，即 <strong>字</strong>（word），一个字中的字节数（即字长）是一个基本的系统参数</li>
-</ul>
-</li>
-<li>I/O总线<ul>
-<li>每个I/O设备都通过一个控制器（在I/O设备本身上）/适配器（主板上）与I/O总线相连</li>
-<li>ALU - 算数与逻辑单元</li>
-</ul>
-</li>
-<li>主存</li>
-<li>CPU</li>
-</ul>
-<h3><span id="jin-cheng">进程</span><a href="#jin-cheng" class="header-anchor">#</a></h3><ul>
-<li>上下文<ul>
-<li>进程运行所有的状态信息</li>
-</ul>
-</li>
-<li>内核<ul>
-<li>系统管理全部进程所用代码和数据结构的集合</li>
-</ul>
-</li>
-</ul>
-<h3><span id="xian-cheng">线程</span><a href="#xian-cheng" class="header-anchor">#</a></h3><p>运行在进程的上下文中，共享同样的代码和全局数据</p>
-<h3><span id="amdahal">Amdahal</span><a href="#amdahal" class="header-anchor">#</a></h3><p>系统整体性能的影响取决于某个加速（或优化）的部分的重要性和加速程度</p>
-<hr>
+![enter image description here](https://res.cloudinary.com/practicaldev/image/fetch/s--fOs0pqL5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/jldtXcJ.png)
+
+## 5 - Alias 别名
+
+有时在查询中，我们会多次选择相同的字段，但每次都使用不同的参数(如图片中的参数)。这将导致命名冲突，因此我们需要为字段分配别名。
+
+别名可以添加到任何字段。
+
+![Alias](https://res.cloudinary.com/practicaldev/image/fetch/s--SESkp6WP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/TEp0pnR.png)
+
+## 6 - Fragment 帧
+
+我们可以将 “子字段” 封装到帧中，并在帧中使用spread操作符来复用它们。当我们一次又一次地选择相同的字段时，它非常有用，可以将它看作是GraphQL字段名的JS对象，可以对其进行解构；
+
+帧与HTTP请求时携带的查询字段中的主要操作一起发送到服务器。
+
+![Fragment](https://res.cloudinary.com/practicaldev/image/fetch/s--J3UhNjEv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/VBCpQ0L.png)
+
+## 7 - Variable 变量
+
+使用GraphQL变量可以方便地模块化和共享/复用预先编写的查询代码；我们在查询开始时声明它们，它们还可以分配默认值；变量可以嵌套，就和普通的JSON对象一样。
+
+<div class="note ">
+            <p>注意到第2部分的图片中的GraphQL请求有效载荷了吗?这就是变量字段的作用。</p>
+          </div>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--935Qw87k--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/CZ9IXJ1.png" alt="Variable"></p>
+<h2><span id="8-interface-jie-kou">8 - Interface 接口</span><a href="#8-interface-jie-kou" class="header-anchor">#</a></h2><p>GraphQL Scheme中的Interface允许我们以OOP的方式灵活地创建和使用复杂的数据类型。</p>
+<p>类型可以实现一个或多个接口。</p>
+<p>当返回类型是接口时，我们可以使用关键字 <code>on</code> 有条件地访问特定实现的字段。</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--gfUVjYpr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/R2W9Kax.png" alt="Interface"></p>
+<h2><span id="9-mutation-shu-ju-bian-dong">9 - Mutation 数据变动</span><a href="#9-mutation-shu-ju-bian-dong" class="header-anchor">#</a></h2><p>与查询相反，Mutation 是用来更改服务器上的数据用的。例如创建帐户、生成验证令牌或添加数据项。</p>
+<p>和查询一样，我们可以为一个 Mutation 提供参数。该Mutation操作会返回变动后的值，所以不要忘记填写我们需要的字段；</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--w0VCqbSW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/guzWD0X.png" alt="Mutation"></p>
+<h2><span id="10-subscription-ding-yue">10 - Subscription 订阅</span><a href="#10-subscription-ding-yue" class="header-anchor">#</a></h2><p>与通过HTTP发送和接收查询不同，GraphQL还有一个用于创建WebSocket连接的 Subscription 操作类型，因此服务器可以将更新主动地推送到客户端。</p>
+<p>特别适用于💹股票市场应用或💬即时通讯应用程序。</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--gZ9G3-75--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/XZ5jtC2.png" alt="Subscription"></p>
 <p>完。</p>
-<p><script src="https://cdn.bootcss.com/raphael/2.3.0/raphael.min.js"></script><script src="https://cdn.bootcss.com/flowchart/1.12.2/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始
-excute=>end: 可执行
-src=>operation: hello.c
-precompile=>parallel: 预处理器cpp
-precompileAction=>subroutine: 读取#include的内容并插入
-
-precompileResult=>operation: hello.i
-compile=>parallel: 编译器 ccl
-compileAction=>subroutine: 转汇编（包含main入口）
-
-compileResult=>operation: hello.s
-assemble=>parallel: 汇编器 as
-assembleAction=>subroutine: 转机器并打包 ,可重定位目标程序
-
-assembleResult=>operation: hello.o 并带上print.o等内容
-link=>parallel: 链接器 ld
-
-linkResult=>operation: hello
-
-st(bottom)->src(bottom)->precompile
-precompile(path1, right)->precompileAction
-precompile(path2, bottom)->precompileResult
-precompileResult(bottom)->compile
-compile(path1, right)->compileAction
-compile(path2, bottom)->compileResult
-
-compileResult(bottom)->assemble
-assemble(path1, right)->assembleAction
-assemble(path2, bottom)->assembleResult
-
-assembleResult(bottom)->link
-link(path2,bottom)->excute</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12,"theme":"simple"}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
 
       
     </div>
@@ -550,7 +533,7 @@ link(path2,bottom)->excute</textarea><textarea id="flowchart-0-options" style="d
       
         <div class="post-tags">
           
-            <a href="/tags/computer-science/" rel="tag"># computer science</a>
+            <a href="/tags/GraphQL/" rel="tag"># GraphQL</a>
           
         </div>
       
@@ -563,8 +546,8 @@ link(path2,bottom)->excute</textarea><textarea id="flowchart-0-options" style="d
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/14/rails一周探/" rel="next" title="rails一周探 day1">
-                <i class="fa fa-chevron-left"></i> rails一周探 day1
+              <a href="/2019/12/08/Rest与GraphQL的对比/" rel="next" title="Rest与GraphQL的对比（译）">
+                <i class="fa fa-chevron-left"></i> Rest与GraphQL的对比（译）
               </a>
             
           </div>
@@ -572,10 +555,6 @@ link(path2,bottom)->excute</textarea><textarea id="flowchart-0-options" style="d
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/23/prototype-chain/" rel="prev" title="深入JavaScript的原型链系统（译）.md">
-                深入JavaScript的原型链系统（译）.md <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -764,7 +743,7 @@ link(path2,bottom)->excute</textarea><textarea id="flowchart-0-options" style="d
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">正文#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">信息位 + 上下文#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text">文本到可执行#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.</span> <span class="nav-text">硬件组成#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.</span> <span class="nav-text">进程#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.5.</span> <span class="nav-text">线程#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.6.</span> <span class="nav-text">Amdahal#</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">1 - GraphQL是如何生效的#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">2 - GraphQL的数据请求与交换流程#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">GraphQL Schema#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">4 - 参数#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">8 - Interface 接口#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">9 - Mutation 数据变动#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">9.</span> <span class="nav-text">10 - Subscription 订阅#</span></a></li></ol></div>
             
 
           </div>
