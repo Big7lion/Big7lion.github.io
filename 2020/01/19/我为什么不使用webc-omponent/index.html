@@ -96,29 +96,18 @@
 
 
 
-  <meta name="description" content="目录    简介 1 - GraphQL是如何生效的 2 - GraphQL的数据请求与交换流程 3 - GraphQL Schema 4 - 参数 5 - Alias 别名 6 - Fragment 帧 7 - Variable 变量 8 - Interface 接口 9 - Mutation 数据变动 10 - Subscription 订阅     简介本文译自 🔥 GraphQL Cra">
-<meta name="keywords" content="GraphQL">
+  <meta name="description" content="目录    简介 前言 1.渐进式的增强 2. CSS in, emmm… JS     简介本文翻译自作者 Rich Harris 的 Why I don’t use web components 该文章引起了许多讨论，建议阅后前往原文评论区观摩 :)">
+<meta name="keywords" content="web componets,svelte">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GraphQL速学（译）">
-<meta property="og:url" content="http://yoursite.com/2019/12/08/GraphQL速学/index.html">
+<meta property="og:title" content="我为什么不使用web components (译)">
+<meta property="og:url" content="http://yoursite.com/2020/01/19/我为什么不使用webc-omponent/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
-<meta property="og:description" content="目录    简介 1 - GraphQL是如何生效的 2 - GraphQL的数据请求与交换流程 3 - GraphQL Schema 4 - 参数 5 - Alias 别名 6 - Fragment 帧 7 - Variable 变量 8 - Interface 接口 9 - Mutation 数据变动 10 - Subscription 订阅     简介本文译自 🔥 GraphQL Cra">
+<meta property="og:description" content="目录    简介 前言 1.渐进式的增强 2. CSS in, emmm… JS     简介本文翻译自作者 Rich Harris 的 Why I don’t use web components 该文章引起了许多讨论，建议阅后前往原文评论区观摩 :)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--vjZTnUne--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/ZalpOf7.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--qHf1ZKI---/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/cIqFAw8.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--CZjzqZGP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/zyTgxJr.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--fOs0pqL5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/jldtXcJ.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--SESkp6WP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/TEp0pnR.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--J3UhNjEv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/VBCpQ0L.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--935Qw87k--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/CZ9IXJ1.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--gfUVjYpr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/R2W9Kax.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--w0VCqbSW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/guzWD0X.png">
-<meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--gZ9G3-75--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/XZ5jtC2.png">
-<meta property="og:updated_time" content="2019-12-08T14:23:20.306Z">
+<meta property="og:updated_time" content="2020-02-09T15:12:36.829Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GraphQL速学（译）">
-<meta name="twitter:description" content="目录    简介 1 - GraphQL是如何生效的 2 - GraphQL的数据请求与交换流程 3 - GraphQL Schema 4 - 参数 5 - Alias 别名 6 - Fragment 帧 7 - Variable 变量 8 - Interface 接口 9 - Mutation 数据变动 10 - Subscription 订阅     简介本文译自 🔥 GraphQL Cra">
-<meta name="twitter:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--vjZTnUne--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/ZalpOf7.png">
+<meta name="twitter:title" content="我为什么不使用web components (译)">
+<meta name="twitter:description" content="目录    简介 前言 1.渐进式的增强 2. CSS in, emmm… JS     简介本文翻译自作者 Rich Harris 的 Why I don’t use web components 该文章引起了许多讨论，建议阅后前往原文评论区观摩 :)">
 
 
 
@@ -126,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/12/08/GraphQL速学/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/19/我为什么不使用webc-omponent/">
 
 
 
@@ -136,7 +125,7 @@
   };
 </script>
 
-  <title>GraphQL速学（译） | Big7lion's Page</title>
+  <title>我为什么不使用web components (译) | Big7lion's Page</title>
   
 
 
@@ -337,7 +326,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/GraphQL速学/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/19/我为什么不使用webc-omponent/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="biglion">
@@ -354,7 +343,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">GraphQL速学（译）
+          <h2 class="post-title" itemprop="name headline">我为什么不使用web components (译)
 
               
             
@@ -380,12 +369,24 @@
                 
               
 
-              <time title="创建时间：2019-12-08 21:32:54 / 修改时间：22:23:20" itemprop="dateCreated datePublished" datetime="2019-12-08T21:32:54+08:00">2019-12-08</time>
+              <time title="创建时间：2020-01-19 01:45:11" itemprop="dateCreated datePublished" datetime="2020-01-19T01:45:11+08:00">2020-01-19</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-09 23:12:36" itemprop="dateModified" datetime="2020-02-09T23:12:36+08:00">2020-02-09</time>
               
             
           </span>
@@ -442,63 +443,30 @@
 <!-- toc -->
 <ul>
 <li><a href="#jian-jie">简介</a></li>
-<li><a href="#1-graphql-shi-ru-he-sheng-xiao-de">1 - GraphQL是如何生效的</a></li>
-<li><a href="#2-graphql-de-shu-ju-qing-qiu-yu-jiao-huan-liu-cheng">2 - GraphQL的数据请求与交换流程</a></li>
-<li><a href="#3-graphql-schema">3 - GraphQL Schema</a></li>
-<li><a href="#4-can-shu">4 - 参数</a></li>
-<li><a href="#5-alias-bie-ming">5 - Alias 别名</a></li>
-<li><a href="#6-fragment-zheng">6 - Fragment 帧</a></li>
-<li><a href="#7-variable-bian-liang">7 - Variable 变量</a></li>
-<li><a href="#8-interface-jie-kou">8 - Interface 接口</a></li>
-<li><a href="#9-mutation-shu-ju-bian-dong">9 - Mutation 数据变动</a></li>
-<li><a href="#10-subscription-ding-yue">10 - Subscription 订阅</a></li>
+<li><a href="#qian-yan">前言</a></li>
+<li><a href="#1-jian-jin-shi-de-zeng-qiang">1.渐进式的增强</a></li>
+<li><a href="#2-css-in-emmm-js">2. CSS in, emmm… JS</a></li>
 </ul>
 <!-- tocstop -->
 </div>
 
-<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>本文译自 <a href="https://dev.to/hexrcs/graphql-crash-course-in-10-pics-3b04" target="_blank" rel="noopener">🔥 GraphQL Crash Course (in 10 pics!)</a></p>
-<p>👇 以下是GraphQL的十张图十分钟速成！ 🥳</p>
+<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>本文翻译自作者 Rich Harris 的 <a href="https://dev.to/richharris/why-i-don-t-use-web-components-2cia" target="_blank" rel="noopener">Why I don’t use web components</a></p>
+<p>该文章引起了许多讨论，建议阅后前往原文评论区观摩 :)</p>
 <a id="more"></a>
-<h2><span id="1-graphql-shi-ru-he-sheng-xiao-de">1 - GraphQL是如何生效的</span><a href="#1-graphql-shi-ru-he-sheng-xiao-de" class="header-anchor">#</a></h2><p>GraphQL 是一种用于发起高弹性API请求的查询语言；</p>
-<p>我们使用嵌套字段描述我们在单个请求中想要的内容，然后我们将准确地接收到符合我们预期的数据。</p>
-<p>这也代表着，我们不需要通过多个小的请求来将数据缝在一起，并避免了在请求中获得多余的部分；</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--vjZTnUne--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/ZalpOf7.png" alt="GraphQL是如何生效的"></p>
-<h2><span id="2-graphql-de-shu-ju-qing-qiu-yu-jiao-huan-liu-cheng">2 - GraphQL的数据请求与交换流程</span><a href="#2-graphql-de-shu-ju-qing-qiu-yu-jiao-huan-liu-cheng" class="header-anchor">#</a></h2><p>GraphQL是一种语言标准而不是一个library；</p>
-<p>我们以POST或GET请求的形式发送结构化查询，服务器检查它们在预定义的Schema中是否有效，然后运行相应的解析函数来执行操作，最后将数据返回给客户端。</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--qHf1ZKI---/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/cIqFAw8.png" alt="GraphQL的数据请求与交换流程"></p>
-<h2><span id="3-graphql-schema">3 - GraphQL Schema</span><a href="#3-graphql-schema" class="header-anchor">#</a></h2><p>GraphQL Schema定义了有效查询的结构和查询的返回数据类型，它是客户端和服务器用来通信的协议。</p>
-<p>它们是强类型的，可以嵌套；除了最常见的 “对象” 类型之外，该模式还支持union、enum、interfaces等。</p>
-<p>There are 3 operation types in GraphQL - query, mutation, or subscription. query is the most commonly used operation.<br>GraphQL中有3种操作类型 — <code>query</code>、<code>mutation</code> 和 <code>subscription</code>。<code>query</code>是最常用的操作。</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--CZjzqZGP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/zyTgxJr.png" alt="GraphQL Schema"></p>
-<h2><span id="4-can-shu">4 - 参数</span><a href="#4-can-shu" class="header-anchor">#</a></h2><p>GraphQL查询允许我们传入参数以获得过滤后的结果，所有有效的参数的定义都在 Schema 中。</p>
-<p>在后端，我们需要定义相应的解析器来满足这些条件查询。</p>
-<div class="note warning">
-            <p>注意: GraphQL在SQL中没有内置比较运算符，类似 &gt; 或TOP, LIMIT这样的函数！这些附加功能必须在解析器中实现。不过不用担心，大多数GraphQL框架已经附带了这些工具类解析器。 </p>
-          </div>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--fOs0pqL5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/jldtXcJ.png" alt="参数"></p>
-<h2><span id="5-alias-bie-ming">5 - Alias 别名</span><a href="#5-alias-bie-ming" class="header-anchor">#</a></h2><p>有时在查询中，我们会多次选择相同的字段，但每次都使用不同的参数(如图片中的参数)。这将导致命名冲突，因此我们需要为字段分配别名。</p>
-<p>别名可以添加到任何字段。</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--SESkp6WP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/TEp0pnR.png" alt="Alias"></p>
-<h2><span id="6-fragment-zheng">6 - Fragment 帧</span><a href="#6-fragment-zheng" class="header-anchor">#</a></h2><p>我们可以将 “子字段” 封装到帧中，并在帧中使用spread操作符来复用它们。当我们一次又一次地选择相同的字段时，它非常有用，可以将它看作是GraphQL字段名的JS对象，可以对其进行解构；</p>
-<p>帧与HTTP请求时携带的查询字段中的主要操作一起发送到服务器。</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--J3UhNjEv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/VBCpQ0L.png" alt="Fragment"></p>
-<h2><span id="7-variable-bian-liang">7 - Variable 变量</span><a href="#7-variable-bian-liang" class="header-anchor">#</a></h2><p>使用GraphQL变量可以方便地模块化和共享/复用预先编写的查询代码；我们在查询开始时声明它们，它们还可以分配默认值；变量可以嵌套，就和普通的JSON对象一样。</p>
-<div class="note ">
-            <p>注意到第2部分的图片中的GraphQL请求有效载荷了吗?这就是变量字段的作用。</p>
-          </div>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--935Qw87k--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/CZ9IXJ1.png" alt="Variable"></p>
-<h2><span id="8-interface-jie-kou">8 - Interface 接口</span><a href="#8-interface-jie-kou" class="header-anchor">#</a></h2><p>GraphQL Scheme中的Interface允许我们以OOP的方式灵活地创建和使用复杂的数据类型。</p>
-<p>类型可以实现一个或多个接口。</p>
-<p>当返回类型是接口时，我们可以使用关键字 <code>on</code> 有条件地访问特定实现的字段。</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--gfUVjYpr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/R2W9Kax.png" alt="Interface"></p>
-<h2><span id="9-mutation-shu-ju-bian-dong">9 - Mutation 数据变动</span><a href="#9-mutation-shu-ju-bian-dong" class="header-anchor">#</a></h2><p>与查询相反，Mutation 是用来更改服务器上的数据用的。例如创建帐户、生成验证令牌或添加数据项。</p>
-<p>和查询一样，我们可以为一个 Mutation 提供参数。该Mutation操作会返回变动后的值，所以不要忘记填写我们需要的字段；</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--w0VCqbSW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/guzWD0X.png" alt="Mutation"></p>
-<h2><span id="10-subscription-ding-yue">10 - Subscription 订阅</span><a href="#10-subscription-ding-yue" class="header-anchor">#</a></h2><p>与通过HTTP发送和接收查询不同，GraphQL还有一个用于创建WebSocket连接的 Subscription 操作类型，因此服务器可以将更新主动地推送到客户端。</p>
-<p>特别适用于💹股票市场应用或💬即时通讯应用程序。</p>
-<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--gZ9G3-75--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.imgur.com/XZ5jtC2.png" alt="Subscription"></p>
-<p>完。</p>
-
+<h2><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h2><p>作为我来到 <a href="https://dev.to" target="_blank" rel="noopener">dev.to</a> 发表的第一篇文章，我觉得我可以和大家一起来讨论一下一个很nice，没有什么争议的话题： <strong>web components</strong>;</p>
+<p>我写这篇文章主要是为了备忘，以便下次有人问我一些像 <em>为什么对 web components 持怀疑态度</em> 或者 <em><a href="https://svelte.dev/" target="_blank" rel="noopener">Svelte</a> 为什么不把编译到web components 作为默认选项</em> 这类问题时，可以再拿出来参考一下。(实际上，根据 <a href="https://custom-elements-everywhere.com/" target="_blank" rel="noopener">Custom Elements Everywhere</a> 上svelte所得到的完美分数，足以证明它能够很好的兼容 web components)</p>
+<p>以下所讨论的内容都不应该被当作是对 web components 所包含的艰苦工作的批评。我在这篇文章中可能犯了一些错误，欢迎在评论中更正。</p>
+<p>同时我也不是在劝诫你不要使用 web components，它有适合它的使用场景，这里我只是在阐述我不使用它的原因。</p>
+<h2><span id="1-jian-jin-shi-de-zeng-qiang">1.渐进式的增强</span><a href="#1-jian-jin-shi-de-zeng-qiang" class="header-anchor">#</a></h2><p>虽然这可能是一种越来越过时的观点，但我还是认为网站应当尽可能地减少对 Javascript 的依赖，而 Web components 在这方面与我的观点相悖，它依赖于Javascript。</p>
+<p>这对于存在着内在交互逻辑的组件是没有什么问题的（比如一个定制化的日期选择组件 <code>&lt;cool-datepicker&gt;</code>），但是对于一个导航栏组件来说，会有些问题。举例来说，我们有一个 <code>&lt;twitter-share&gt;</code> 标签，它内部封装了只对本组件有效的css以及构建一个 <a href="https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/web-intent.html" target="_blank" rel="noopener">Twitter web intenet</a> 链接的所有交互逻辑。我可以在 <a href="https://svelte.dev/repl/98aa20d4cb3d40dabfef7d8dae183b85?version=3.5.2" target="_blank" rel="noopener">svelte 中构建这个组件</a>，将会生成以下的 HTML 代码片段用于服务器渲染：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">noreferrer</span> <span class="attr">href</span>=<span class="string">"..."</span> <span class="attr">class</span>=<span class="string">"svelte-1jnfxx"</span>&gt;</span></span><br><span class="line">  Tweet this</span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>换句话说，在可访问性上，它等同于一个标准的 <code>&lt;a&gt;</code> 标签。</p>
+<p>当 Javascript 启用时，它以渐进式的方式增强用户体验：打开一个小的 popup 形式的小窗口，而不是直接打开一个网页Tab。当然，Javascript 被禁用时，它也能降级到打开 Tab 的方式。</p>
+<p>但如果我用 web components 来编写这个组件时，它会长这样；</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">twitter-share</span> <span class="attr">text</span>=<span class="string">"..."</span> <span class="attr">url</span>=<span class="string">"..."</span> <span class="attr">via</span>=<span class="string">"..."</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Javascript 被禁用或者出现报错导致代码不能正常运行时，又或者是在不支持 web components 的旧版本浏览器上时，这个标签会变得不能正常工作并且不可访问；</p>
+<p>注：svelte 使用 <code>class=&quot;svelte-1jnfxx&quot;</code> 来限制 css的作用域，以确保其仅作用于该组件，而无需借助 Shadow DOM 来实现此目的，这也引出了我的下一个观点：</p>
+<h2><span id="2-css-in-emmm-js">2. CSS in, emmm… JS</span><a href="#2-css-in-emmm-js" class="header-anchor">#</a></h2>
       
     </div>
 
@@ -521,7 +489,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GraphQL/" rel="tag"># GraphQL</a>
+            <a href="/tags/web-componets/" rel="tag"># web componets</a>
+          
+            <a href="/tags/svelte/" rel="tag"># svelte</a>
           
         </div>
       
@@ -534,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/08/Rest与GraphQL的对比/" rel="next" title="Rest与GraphQL的对比（译）">
-                <i class="fa fa-chevron-left"></i> Rest与GraphQL的对比（译）
+              <a href="/2019/12/08/GraphQL速学/" rel="next" title="GraphQL速学（译）">
+                <i class="fa fa-chevron-left"></i> GraphQL速学（译）
               </a>
             
           </div>
@@ -543,10 +513,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/19/我为什么不使用webc-omponent/" rel="prev" title="我为什么不使用web components (译)">
-                我为什么不使用web components (译) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -739,7 +705,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">1 - GraphQL是如何生效的#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">2 - GraphQL的数据请求与交换流程#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">3 - GraphQL Schema#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">4 - 参数#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">5 - Alias 别名#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">6 - Fragment 帧#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">9.</span> <span class="nav-text">7 - Variable 变量#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">10.</span> <span class="nav-text">8 - Interface 接口#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">11.</span> <span class="nav-text">9 - Mutation 数据变动#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">12.</span> <span class="nav-text">10 - Subscription 订阅#</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">前言#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">1.渐进式的增强#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">2. CSS in, emmm… JS#</span></a></li></ol></div>
             
 
           </div>
