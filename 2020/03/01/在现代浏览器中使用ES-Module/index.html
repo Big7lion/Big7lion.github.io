@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="目录    简介 前言 当前的 ES Modules 是怎么用的？ Requirements 性能 为什么我们要将各个资源放在一起去获取 预加载 HTTP2 缓存 async / defer Libraries 浏览器的支持     简介本文翻译自作者 Mark Brown 的 Using ES Modules in the Browser Today 本文将向您展示如何在浏览器中使用ES Mod">
+<meta name="keywords" content="browser">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在现代浏览器中使用ES-Module">
+<meta property="og:url" content="http://yoursite.com/2020/03/01/在现代浏览器中使用ES-Module/index.html">
+<meta property="og:site_name" content="Big7lion&#39;s Page">
+<meta property="og:description" content="目录    简介 前言 当前的 ES Modules 是怎么用的？ Requirements 性能 为什么我们要将各个资源放在一起去获取 预加载 HTTP2 缓存 async / defer Libraries 浏览器的支持     简介本文翻译自作者 Mark Brown 的 Using ES Modules in the Browser Today 本文将向您展示如何在浏览器中使用ES Mod">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/03/1520727497modules-network.png">
+<meta property="og:updated_time" content="2020-02-29T19:57:49.901Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在现代浏览器中使用ES-Module">
+<meta name="twitter:description" content="目录    简介 前言 当前的 ES Modules 是怎么用的？ Requirements 性能 为什么我们要将各个资源放在一起去获取 预加载 HTTP2 缓存 async / defer Libraries 浏览器的支持     简介本文翻译自作者 Mark Brown 的 Using ES Modules in the Browser Today 本文将向您展示如何在浏览器中使用ES Mod">
+<meta name="twitter:image" content="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/03/1520727497modules-network.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/03/01/在现代浏览器中使用ES-Module/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>在现代浏览器中使用ES-Module | Big7lion's Page</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Big7lion's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/01/在现代浏览器中使用ES-Module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="biglion">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/21300991?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Big7lion's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">在现代浏览器中使用ES-Module
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-01 02:17:09 / 修改时间：03:57:49" itemprop="dateCreated datePublished" datetime="2020-03-01T02:17:09+08:00">2020-03-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#jian-jie">简介</a></li>
+<li><a href="#qian-yan">前言</a></li>
+<li><a href="#dang-qian-de-es-modules-shi-zen-me-yong-de">当前的 ES Modules 是怎么用的？</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#xing-neng">性能</a></li>
+<li><a href="#wei-shi-me-wo-men-yao-jiang-ge-ge-zi-yuan-fang-zai-yi-qi-qu-huo-qu">为什么我们要将各个资源放在一起去获取</a></li>
+<li><a href="#yu-jia-zai">预加载</a></li>
+<li><a href="#http2">HTTP2</a></li>
+<li><a href="#huan-cun">缓存</a></li>
+<li><a href="#async-defer">async / defer</a></li>
+<li><a href="#libraries">Libraries</a></li>
+<li><a href="#liu-lan-qi-de-zhi-chi">浏览器的支持</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>本文翻译自作者 Mark Brown 的 <a href="https://www.sitepoint.com/using-es-modules/" target="_blank" rel="noopener">Using ES Modules in the Browser Today</a></p>
+<p>本文将向您展示如何在浏览器中使用ES Modules。</p>
+<a id="more"></a>
+<h2><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h2><p>一段时间以前，Javascript 还没有模块的概念，这对于在一个 Javascript 文件里直接引入另一个 Javascript 文件的内容来说，这样的想法是无法实现的。而随着网页应用的复杂度和规模不断增长，为浏览器编写Javascript代码变得越来越棘手了。</p>
+<p>此前的一个常见的解决办法是在网页用通过 <code>script</code> 标签来加载任意脚本，然而这个方法会带来其特有的麻烦。举例来说，每个脚本执行会阻塞 HTTP 请求，这就会导致使用大量Javascript脚本的网页会变得卡顿和反应迟钝；同时，依赖管理也变得复杂，因为脚本加载的顺序也很重要。</p>
+<p>ES6 (ES2015) 通过引入一个单一的、标准化的本地模块解决了这个问题（你可以<a href="https://www.sitepoint.com/understanding-es6-modules/" target="_blank" rel="noopener">点此了解更多ES6 Modules的内容</a>）。但由于早期浏览器对ES6模块的支持度不高，开发者们开始使用模块加载器来将依赖项捆绑到 ES5 跨浏览器兼容文件中，这个办法同样也有它的问题和复杂程度。</p>
+<p>但是，好消息是在如今的浏览器环境中，支持度变得越来越好，让我们看看如何在当今的浏览器中使用ES6 Modules吧！</p>
+<h2><span id="dang-qian-de-es-modules-shi-zen-me-yong-de">当前的 ES Modules 是怎么用的？</span><a href="#dang-qian-de-es-modules-shi-zen-me-yong-de" class="header-anchor">#</a></h2><p>Safari，Chrome，Firefox 和 Edge 均支持ES6 Modules导入语法，用起来会像是这样子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> &#123; tag &#125; <span class="keyword">from</span> <span class="string">'./html.js'</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> h1 = tag(<span class="string">'h1'</span>, <span class="string">' Hello Modules!'</span>)</span></span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.body.appendChild(h1)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// html.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">tag</span> (<span class="params">tag, text</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> el = <span class="built_in">document</span>.createElement(tag)</span><br><span class="line">  el.textContent = text</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> el</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者作为外部脚本来获取：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">"app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; tag &#125; <span class="keyword">from</span> <span class="string">'./html.js'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> h1 = tag(<span class="string">'h1'</span>, <span class="string">' Hello Modules!'</span>)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(h1)</span><br></pre></td></tr></table></figure>
+<p>只需要简单的把 <code>type=&quot;module&quot;</code> 这一句添加到 script 标签里，浏览器将其识别为 ES Modules，并遍历所有的 import 路径，并且只下载和执行一次；</p>
+<p><img src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/03/1520727497modules-network.png" alt="ES modules: Network graph showing loading"></p>
+<p>旧的浏览器不会执行未知类型的脚本，但可以使用 <code>nomodule</code> 属性添加一个后备脚本；</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">"module.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">nomodule</span> <span class="attr">src</span>=<span class="string">"fallback.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="requirements">Requirements</span><a href="#requirements" class="header-anchor">#</a></h2><p>你需要一台服务器才能导入ES Modules 中 import 的内容，但它不能在<code>file://</code>协议上使用。你可以使用 <code>npx serve</code> 在当前目录中启动服务器以进行本地测试。</p>
+<p>如果希望在不同的域中加载ES Modules，则需要启用CORS；</p>
+<p>如果你有足够的信心在现今的生产环境中尝试这样做，你仍然需要为旧的浏览器创建单独的包。<code>browseres -es-module-loader</code> 是一个polyfill，它符合规范。但是，仍然不推荐用于生产。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">nomodule</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/browser-es-module-loader/dist/babel-browser-build.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">nomodule</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/browser-es-module-loader"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">"./app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://modules-in-the-browser-urdpsqcfiy.now.sh/" target="_blank" rel="noopener">demo 链接</a></li>
+<li><a href="https://github.com/sitepoint-editors/modules-in-the-browser/blob/master/index.html" target="_blank" rel="noopener">源码</a></li>
+</ul>
+<h2><span id="xing-neng">性能</span><a href="#xing-neng" class="header-anchor">#</a></h2><p>不要放弃你的构建工具，比如 Babel 和 Webpack，因为尽管浏览器在不断寻求实现优化资源获取的方法，在将来的ES Modules中仍然会存在性能和收益的缺陷。</p>
+<h2><span id="wei-shi-me-wo-men-yao-jiang-ge-ge-zi-yuan-fang-zai-yi-qi-qu-huo-qu">为什么我们要将各个资源放在一起去获取</span><a href="#wei-shi-me-wo-men-yao-jiang-ge-ge-zi-yuan-fang-zai-yi-qi-qu-huo-qu" class="header-anchor">#</a></h2><p>今天，我们将 JavaScript 捆绑在一起以减少 HTTP请求 的数量，因为网络通常是加载web页面中最慢的部分。这在今天仍然是一个非常现实的问题，但是未来是光明的：ES Modules 配合 HTTP2 能够通过 <a href="https://www.smashingmagazine.com/2017/04/guide-http2-server-push/" target="_blank" rel="noopener">服务器推送</a> 和 <a href="https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/" target="_blank" rel="noopener">浏览器预加载</a> 来同时获取多个资源。</p>
+<h2><span id="yu-jia-zai">预加载</span><a href="#yu-jia-zai" class="header-anchor">#</a></h2><p><a href="https://html.spec.whatwg.org/multipage/links.html#link-type-modulepreload" target="_blank" rel="noopener">link rel=”modulepreload”</a> 会快就能使用，它不会让浏览器逐个地解析脚本，而是生成一个可控制地网络流；一下举例说明：</p>
+<p>如果不添加这个属性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">"./app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>那么网络流是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---&gt; GET index.html</span><br><span class="line">&lt;---</span><br><span class="line">    ---&gt; GET app.js</span><br><span class="line">    &lt;---</span><br><span class="line">        ---&gt; GET html.js</span><br><span class="line">        &lt;---</span><br><span class="line">            ---&gt; GET lib.js</span><br><span class="line">            &lt;---</span><br></pre></td></tr></table></figure>
+<p>而当你通过这个属性明确地告诉浏览器，页面需要 <code>html.js</code> 和 <code>lib.js</code>，就像这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"modulepreload"</span> <span class="attr">href</span>=<span class="string">"html.js"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"modulepreload"</span> <span class="attr">href</span>=<span class="string">"lib.js"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">"./app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---&gt; GET /index.html</span><br><span class="line">&lt;---</span><br><span class="line">      ---&gt; GET app.js</span><br><span class="line">      ---&gt; GET html.js</span><br><span class="line">      ---&gt; GET lib.js</span><br><span class="line">      &lt;---</span><br><span class="line">      &lt;---</span><br><span class="line">      &lt;---</span><br></pre></td></tr></table></figure>
+<h2><span id="http2">HTTP2</span><a href="#http2" class="header-anchor">#</a></h2><p>与只能传递一个资源的HTTP1.1相比，HTTP2能够在单个响应中推送多个资源。 这将有助于使网络请求数量保持最少。</p>
+<p>在我们的示例中，可以在一个请求中获取 <code>index.html</code>、<code>app.js</code> 和 <code>html.js</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---&gt; GET /index.html</span><br><span class="line">&lt;--- index.html</span><br><span class="line">&lt;--- app.js</span><br><span class="line">&lt;--- html.js</span><br><span class="line">&lt;--- lib.js</span><br></pre></td></tr></table></figure>
+<h2><span id="huan-cun">缓存</span><a href="#huan-cun" class="header-anchor">#</a></h2><p>传递多个较小的ES Modules可能有利于发挥缓存地优势，因为浏览器仅需要获取更新过的模块。如果使用大量脚本绑定在一个Module内，如果更新，就需要一次更新整个Modules;</p>
+<h2><span id="async-defer">async / defer</span><a href="#async-defer" class="header-anchor">#</a></h2><p>ES modules 默认不会阻塞渲染进程，类似于 <code>&lt;script defer&gt;</code>，如果你的 Modules 不需要按照HTML中定义的顺序执行，你可以添加 <code>async</code> 属性令其加载后尽快执行；</p>
+<h2><span id="libraries">Libraries</span><a href="#libraries" class="header-anchor">#</a></h2><p>许多流行的库现在已开始以 ES Modules 的形式发布，但是它们仍以构建工具为目标，而不是本文所介绍的这种直接导入的方式。</p>
+<p>这个不起眼的import会触发640个请求：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'https://unpkg.com/lodash-es'</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果我们只导入我们需要的那一个函数呢？我们现在只有119个请求：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> cloneDeep <span class="keyword">from</span> <span class="string">'https://unpkg.com/lodash-es/cloneDeep'</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是个小例子，用来例证目前为止 <code>lodash-es</code> 并不是直接用来给浏览器 import 的，要做到能够直接import，你仍然需要创建自己的 ES 库。</p>
+<h2><span id="liu-lan-qi-de-zhi-chi">浏览器的支持</span><a href="#liu-lan-qi-de-zhi-chi" class="header-anchor">#</a></h2><p>如下表所示，浏览器对 ES Modules 的支持很好(并且一直在改进)。</p>
+<iframe src="https://caniuse.bitsofco.de/embed/index.html?feat=es6-module&amp;periods=future_1,current,past_1,past_2&amp;accessible-colours=false" frameborder="0" width="100%" height="439px"></iframe>
+
+<p>现在是时候开始在浏览器中尝试ES Modules了。很快，你就可以在没有编译器或构建工具的情况下，在所有现代浏览器中使用ES Modules。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/browser/" rel="tag"># browser</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/19/我为什么不使用webc-omponent/" rel="next" title="我为什么不使用web components (译)">
+                <i class="fa fa-chevron-left"></i> 我为什么不使用web components (译)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/21300991?s=460&v=4" alt="biglion">
+            
+              <p class="site-author-name" itemprop="name">biglion</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Big7lion" title="GitHub &rarr; https://github.com/Big7lion" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:biglion77@outlook.com" title="E-Mail &rarr; mailto:biglion77@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">前言#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">当前的 ES Modules 是怎么用的？#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">Requirements#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">性能#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">为什么我们要将各个资源放在一起去获取#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">预加载#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">9.</span> <span class="nav-text">HTTP2#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">10.</span> <span class="nav-text">缓存#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">11.</span> <span class="nav-text">async / defer#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">12.</span> <span class="nav-text">Libraries#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">13.</span> <span class="nav-text">浏览器的支持#</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">biglion</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
