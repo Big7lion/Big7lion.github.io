@@ -659,6 +659,9 @@ pre .keyword,
 pre .javascript .function {
   color: #c9c;
 }
+.line.marked {
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+}
 .posts-expand .post-body img.full-image {
   border: none;
 }
@@ -1770,7 +1773,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2405ff;
+  background: #57144f;
 }
 .feed-link,
 .chat {
