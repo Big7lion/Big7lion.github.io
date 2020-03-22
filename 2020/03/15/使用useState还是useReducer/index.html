@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="目录    约定 命名约定 数据库里的模型约定   CRUD 创建 读取 更新 删除 数据验证       约定命名约定Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：  数据库表名：复数，下划线分隔单词（例如 book">
-<meta name="keywords" content="约定与规范,model">
+  <meta name="description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode       简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法。 另外文末将会附上作者原文中讲解代码的视频。">
+<meta name="keywords" content="react,hooks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rails一周探 day1">
-<meta property="og:url" content="http://yoursite.com/2019/04/14/rails一周探/index.html">
+<meta property="og:title" content="我应该使用useState还是useReducer?（翻译）">
+<meta property="og:url" content="http://yoursite.com/2020/03/15/使用useState还是useReducer/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
-<meta property="og:description" content="目录    约定 命名约定 数据库里的模型约定   CRUD 创建 读取 更新 删除 数据验证       约定命名约定Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：  数据库表名：复数，下划线分隔单词（例如 book">
+<meta property="og:description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode       简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法。 另外文末将会附上作者原文中讲解代码的视频。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-29T15:58:38.281Z">
+<meta property="og:updated_time" content="2020-03-15T18:28:05.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rails一周探 day1">
-<meta name="twitter:description" content="目录    约定 命名约定 数据库里的模型约定   CRUD 创建 读取 更新 删除 数据验证       约定命名约定Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：  数据库表名：复数，下划线分隔单词（例如 book">
+<meta name="twitter:title" content="我应该使用useState还是useReducer?（翻译）">
+<meta name="twitter:description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode       简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法。 另外文末将会附上作者原文中讲解代码的视频。">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/04/14/rails一周探/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/15/使用useState还是useReducer/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>rails一周探 day1 | Big7lion's Page</title>
+  <title>我应该使用useState还是useReducer?（翻译） | Big7lion's Page</title>
   
 
 
@@ -326,7 +326,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/rails一周探/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/使用useState还是useReducer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="biglion">
@@ -343,7 +343,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">rails一周探 day1
+          <h2 class="post-title" itemprop="name headline">我应该使用useState还是useReducer?（翻译）
 
               
             
@@ -369,7 +369,7 @@
                 
               
 
-              <time title="创建时间：2019-04-14 22:34:59" itemprop="dateCreated datePublished" datetime="2019-04-14T22:34:59+08:00">2019-04-14</time>
+              <time title="创建时间：2020-03-15 21:59:12" itemprop="dateCreated datePublished" datetime="2020-03-15T21:59:12+08:00">2020-03-15</time>
             
 
             
@@ -386,7 +386,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-29 23:58:38" itemprop="dateModified" datetime="2019-09-29T23:58:38+08:00">2019-09-29</time>
+                <time title="修改时间：2020-03-16 02:28:05" itemprop="dateModified" datetime="2020-03-16T02:28:05+08:00">2020-03-16</time>
               
             
           </span>
@@ -403,7 +403,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/rails/" itemprop="url" rel="index"><span itemprop="name">rails</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a></span>
 
                 
                 
@@ -438,87 +438,38 @@
       
 
       
-        <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><div class="toc">
+        <link rel="stylesheet" href="/bl-highlight.css">
+
+<h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><div class="toc">
 
 <!-- toc -->
 <ul>
-<li><a href="#yue-ding">约定</a><ul>
-<li><a href="#ming-ming-yue-ding">命名约定</a></li>
-<li><a href="#shu-ju-ku-li-de-mo-xing-yue-ding">数据库里的模型约定</a></li>
-</ul>
-</li>
-<li><a href="#crud">CRUD</a><ul>
-<li><a href="#chuang-jian">创建</a></li>
-<li><a href="#du-qu">读取</a></li>
-<li><a href="#geng-xin">更新</a></li>
-<li><a href="#shan-chu">删除</a></li>
-<li><a href="#shu-ju-yan-zheng">数据验证</a></li>
+<li><a href="#jian-jie">简介</a></li>
+<li><a href="#qian-yan">前言</a></li>
+<li><a href="#wo-men-ju-li-lai-shuo-ba">我们举例来说吧</a><ul>
+<li><a href="#yi-ge-zi-ding-yi-hook-usedarkmode">一个自定义hook: <code>useDarkMode</code></a></li>
 </ul>
 </li>
 </ul>
 <!-- tocstop -->
 </div>
 
-<h2><span id="yue-ding">约定</span><a href="#yue-ding" class="header-anchor">#</a></h2><h3><span id="ming-ming-yue-ding">命名约定</span><a href="#ming-ming-yue-ding" class="header-anchor">#</a></h3><p>Rails 把模型的类名转换成复数，然后查找对应的数据表。例如，模型类名为 Book，数据表就是 books。如果类名由多个单词组成，应该按照 Ruby 的约定，使用驼峰式命名法，这时对应的数据库表将使用下划线分隔各单词。因此：</p>
-<ul>
-<li>数据库表名：复数，下划线分隔单词（例如 book_clubs）</li>
-<li>模型类名：单数，每个单词的首字母大写（例如 BookClub）</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">模型/类</th>
-<th style="text-align:center">表/模式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Article</td>
-<td style="text-align:center">articles</td>
-</tr>
-<tr>
-<td style="text-align:center">LineItem</td>
-<td style="text-align:center">line_items</td>
-</tr>
-<tr>
-<td style="text-align:center">Deer</td>
-<td style="text-align:center">deers</td>
-</tr>
-<tr>
-<td style="text-align:center">Mouse</td>
-<td style="text-align:center">mice</td>
-</tr>
-<tr>
-<td style="text-align:center">Person</td>
-<td style="text-align:center">people</td>
-</tr>
-</tbody>
-</table>
-<h3><span id="shu-ju-ku-li-de-mo-xing-yue-ding">数据库里的模型约定</span><a href="#shu-ju-ku-li-de-mo-xing-yue-ding" class="header-anchor">#</a></h3><p>根据字段的作用不同，Active Record 对数据库表中的字段命名也做了相应的约定：</p>
-<p>外键：使用 <code>singularized_table_name_id</code> 形式命名，例如 <code>item_id</code>，<code>order_id</code> 。创建模型关联后，Active Record 会查找这个字段；<br>主键：默认情况下，Active Record 使用整数字段 id 作为表的主键。使用 Active Record 迁移创建数据库表时，会自动创建这个字段；</p>
-<p>还有一些可选的字段，能为 Active Record 实例添加更多的功能：</p>
-<ol>
-<li><code>created_at</code>：创建记录时，自动设为当前的日期和时间；</li>
-<li><code>updated_at</code>：更新记录时，自动设为当前的日期和时间；</li>
-<li><code>lock_version</code>：在模型中添加乐观锁；</li>
-<li><code>type</code>：让模型使用单表继承；</li>
-<li><code>(association_name)_type</code>：存储多态关联的类型；</li>
-<li><code>(table_name)_count</code>：缓存所关联对象的数量。比如说，一个 Article 有多个 Comment，那么 comments_count 列存储各篇文章现有的评论数量；</li>
-</ol>
+<h2><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h2><p>本文翻译自 <a href="https://kentcdodds.com/blog/should-i-usestate-or-usereducer" target="_blank" rel="noopener">Should I useState or useReducer?</a>，原文作者为 <a href="https://kentcdodds.com/" target="_blank" rel="noopener">Kent C. Dodds</a>。</p>
+<p>本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法。</p>
+<p>另外文末将会附上作者原文中讲解代码的视频。</p>
 <a id="more"></a>
-<h2><span id="crud">CRUD</span><a href="#crud" class="header-anchor">#</a></h2><h3><span id="chuang-jian">创建</span><a href="#chuang-jian" class="header-anchor">#</a></h3><p><code>new</code>和<code>create</code>方法都能创建新对象，区别在于，<code>new</code>产生的对象需要<code>save方法</code>才能存入数据库，而<code>creat方法</code>即时创建</p>
-<h3><span id="du-qu">读取</span><a href="#du-qu" class="header-anchor">#</a></h3><p>以<code>User</code>为例；</p>
+<h2><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h2><p><code>useState</code> 和 <code>useReducer</code> 这两个 React 用于处理状态的hooks，我们应该使用哪一个呢？</p>
+<p>每当有两个选项来处理同一件事时，人们常常提出这样的疑问：『我应该选择哪一个呢？』</p>
+<p>有两种可能性可以来解释我们为什么会有多种方法用于做同一件事：</p>
 <ol>
-<li><code>User.all</code> 返回所有的集合</li>
-<li><code>User.first</code> 返回第一条</li>
-<li><code>User.find_by(name: &#39;David&#39;)</code> 返回第一个name是David的条目</li>
-<li><code>User.where(name: &#39;David&#39;, occupation: &#39;Code Artist&#39;).order(created_at: :desc)</code> 查找所有名为 David，职业为 Code Artists 的用户，而且按照 created_at 反向排列（:desc）</li>
+<li>其中一个方法是传统的做法，另一些方法是对传统方法的改进，是了『新事物』。具体来说，我们通常为了向后兼容，会保留原有的旧方法，而新方法则是更新迭代所需要的新的基础设施。例如：React的 Class组件(旧方法) vs 函数组件(新方法)</li>
+<li>它们侧重于不同的角度，应该根据需求进行分析与考虑，从而分别应用于适合它们的情况（有时这也意味着在一段程序中会使用到上述提及的多个方法）；例如：<a href="https://kentcdodds.com/blog/should-i-usestate-or-usereducer" target="_blank" rel="noopener"><code>useState</code> vs <code>useReducer</code></a> 或是 <a href="https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener">Static vs Unit vs Integration vs E2E tests</a>，抑或是 <a href="https://kentcdodds.com/blog/control-props-vs-state-reducers" target="_blank" rel="noopener">“Control Props” vs “State Reducers”</a></li>
 </ol>
-<h3><span id="geng-xin">更新</span><a href="#geng-xin" class="header-anchor">#</a></h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/普通修改</span></span><br><span class="line"><span class="regexp">user = User.find_by(name: 'David')</span></span><br><span class="line"><span class="regexp">user.name = 'Dave'</span></span><br><span class="line"><span class="regexp">user.save</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/散列式简写</span></span><br><span class="line"><span class="regexp">user = User.find_by(name: 'David')</span></span><br><span class="line"><span class="regexp">user.update(name: 'Dave')</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/一次更新多个属性时</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">User.update_all "max_login_attempts = 3, must_change_password = 'true'"</span></span><br></pre></td></tr></table></figure>
-<h3><span id="shan-chu">删除</span><a href="#shan-chu" class="header-anchor">#</a></h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user = User.find_by(<span class="symbol">name:</span> <span class="string">'David'</span>)</span><br><span class="line">user.destroy</span><br></pre></td></tr></table></figure>
-<h3><span id="shu-ju-yan-zheng">数据验证</span><a href="#shu-ju-yan-zheng" class="header-anchor">#</a></h3><p><code>save!</code> 和 <code>update!</code>，被称为<strong>爆炸方法</strong>,如果验证失<code>败，抛出 ActiveRecord::RecordInvalid</code> 异常</p>
+<p><code>useState</code> 和 <code>useReducer</code> 的对比，符合上面的第二条，所以让我们一起来讨论一下它们各自的适用场景吧~</p>
+<p>(悄悄说一句，这不是一个<a href="https://twitter.com/ryanflorence/status/1234534306707456000" target="_blank" rel="noopener">很难回答的问题</a> 😂)</p>
+<h2><span id="wo-men-ju-li-lai-shuo-ba">我们举例来说吧</span><a href="#wo-men-ju-li-lai-shuo-ba" class="header-anchor">#</a></h2><p>我认为讨论适用场景的最好办法就是通过实际例子来进行分析，我们将集中关注于两个典型例子，一个更适合 <code>useState</code>，另一个更适合 <code>useReducer</code>。这两个例子并不能覆盖所有的场景，但仅作为抛砖引玉，希望你能从这得到启发，形成你自己的判断。</p>
+<h3><span id="yi-ge-zi-ding-yi-hook-usedarkmode">一个自定义hook: <code>useDarkMode</code></span><a href="#yi-ge-zi-ding-yi-hook-usedarkmode" class="header-anchor">#</a></h3><p>我最近为我的<a href="https://react-fundamentals.netlify.com/" target="_blank" rel="noopener">教程项目</a>编写了这段代码，看起来蛮有趣的，让我们来对比一下 <code>useState</code> 和 <code>useReducer</code> 的不同实现吧。</p>
+<h4><span id="usestate-de-shi-xian"><code>useState</code>的实现</span><a href="#usestate-de-shi-xian" class="header-anchor">#</a></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useDarkMode</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line marked">  <span class="keyword">const</span> preferDarkQuery = <span class="string">'(prefers-color-scheme: dark)'</span></span><br><span class="line marked">  <span class="keyword">const</span> [mode, setMode] = React.useState(</span><br><span class="line marked">    () =&gt;</span><br><span class="line marked">      <span class="built_in">window</span>.localStorage.getItem(<span class="string">'colorMode'</span>) ||</span><br><span class="line marked">      (<span class="built_in">window</span>.matchMedia(preferDarkQuery).matches ? <span class="string">'dark'</span> : <span class="string">'light'</span>),</span><br><span class="line marked">  )</span><br><span class="line">  React.useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> mediaQuery = <span class="built_in">window</span>.matchMedia(preferDarkQuery)</span><br><span class="line">    <span class="keyword">const</span> handleChange = <span class="function"><span class="params">()</span> =&gt;</span> setMode(mediaQuery.matches ? <span class="string">'dark'</span> : <span class="string">'light'</span>)</span><br><span class="line marked">    mediaQuery.addListener(handleChange)</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> mediaQuery.removeListener(handleChange)</span><br><span class="line">  &#125;, [])</span><br><span class="line">  React.useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.localStorage.setItem(<span class="string">'colorMode'</span>, mode)</span><br><span class="line">  &#125;, [mode])</span><br><span class="line">  <span class="keyword">return</span> [mode, setMode]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -542,9 +493,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/约定与规范/" rel="tag"># 约定与规范</a>
+            <a href="/tags/react/" rel="tag"># react</a>
           
-            <a href="/tags/model/" rel="tag"># model</a>
+            <a href="/tags/hooks/" rel="tag"># hooks</a>
           
         </div>
       
@@ -557,8 +508,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/02/rails初探/" rel="next" title="rails初探">
-                <i class="fa fa-chevron-left"></i> rails初探
+              <a href="/2020/03/01/在现代浏览器中使用ES-Module/" rel="next" title="在现代浏览器中使用ES-Module">
+                <i class="fa fa-chevron-left"></i> 在现代浏览器中使用ES-Module
               </a>
             
           </div>
@@ -566,10 +517,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/30/计算机系统-day-1-md/" rel="prev" title="计算机系统-day-1.md">
-                计算机系统-day-1.md <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -768,7 +715,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">约定#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">命名约定#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">数据库里的模型约定#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">CRUD#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">创建#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text">读取#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.</span> <span class="nav-text">更新#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.</span> <span class="nav-text">删除#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.5.</span> <span class="nav-text">数据验证#</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">前言#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">我们举例来说吧#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.</span> <span class="nav-text">一个自定义hook: useDarkMode#</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.1.</span> <span class="nav-text">useState的实现#</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
