@@ -659,8 +659,18 @@ pre .keyword,
 pre .javascript .function {
   color: #c9c;
 }
+.highlight table {
+  width: 100%;
+}
+.highlight .code pre {
+  width: auto;
+}
+.line {
+  display: inline-block;
+  width: 100%;
+}
 .line.marked {
-  border-bottom: 1px solid rgba(255,255,255,0.4);
+  background: #000;
 }
 .posts-expand .post-body img.full-image {
   border: none;
@@ -1773,7 +1783,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #baff88;
+  background: #62d4ff;
 }
 .feed-link,
 .chat {
