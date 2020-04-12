@@ -1,3 +1,11 @@
 .line.marked {
   border-bottom: 1px solid rgba(255, 255, 255, .4);
 }
+
+.highlight table {
+  width: 100%;
+}
+
+.highlight .code pre {
+  width: auto;
+}
