@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode 另一个自定义hook: useUndo useState的版本   原文视频     简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useRed">
+  <meta name="description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode 另一个自定义hook: useUndo   总结 原文视频     简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法">
 <meta name="keywords" content="react,hooks">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我应该使用useState还是useReducer?（翻译）">
 <meta property="og:url" content="http://yoursite.com/2020/03/15/使用useState还是useReducer/index.html">
 <meta property="og:site_name" content="Big7lion&#39;s Page">
-<meta property="og:description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode 另一个自定义hook: useUndo useState的版本   原文视频     简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useRed">
+<meta property="og:description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode 另一个自定义hook: useUndo   总结 原文视频     简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-22T16:36:31.276Z">
+<meta property="og:updated_time" content="2020-04-12T17:57:25.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我应该使用useState还是useReducer?（翻译）">
-<meta name="twitter:description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode 另一个自定义hook: useUndo useState的版本   原文视频     简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useRed">
+<meta name="twitter:description" content="目录    简介 前言 我们举例来说吧 一个自定义hook: useDarkMode 另一个自定义hook: useUndo   总结 原文视频     简介本文翻译自 Should I useState or useReducer?，原文作者为 Kent C. Dodds。 本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法">
 
 
 
@@ -386,7 +386,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-23 00:36:31" itemprop="dateModified" datetime="2020-03-23T00:36:31+08:00">2020-03-23</time>
+                <time title="修改时间：2020-04-13 01:57:25" itemprop="dateModified" datetime="2020-04-13T01:57:25+08:00">2020-04-13</time>
               
             
           </span>
@@ -449,9 +449,9 @@
 <li><a href="#wo-men-ju-li-lai-shuo-ba">我们举例来说吧</a><ul>
 <li><a href="#yi-ge-zi-ding-yi-hook-usedarkmode">一个自定义hook: <code>useDarkMode</code></a></li>
 <li><a href="#ling-yi-ge-zi-ding-yi-hook-useundo">另一个自定义hook: <code>useUndo</code></a></li>
-<li><a href="#usestate-de-ban-ben-1"><code>useState</code>的版本</a></li>
 </ul>
 </li>
+<li><a href="#zong-jie">总结</a></li>
 <li><a href="#yuan-wen-shi-pin">原文视频</a></li>
 </ul>
 <!-- tocstop -->
@@ -461,12 +461,12 @@
 <p>本文通过两个个示例讲解了useState和useReducer的适用场景，同时介绍了一个useReducer的简单用法。</p>
 <p>另外文末将会附上作者原文中讲解代码的视频。</p>
 <a id="more"></a>
-<h2><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h2><p><code>useState</code> 和 <code>useReducer</code> 这两个 React 用于处理状态的hooks，我们应该使用哪一个呢？</p>
+<h2><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h2><p><code>useState</code> 和 <code>useReducer</code> 这两个用于处理状态的React hooks，我们应该使用哪一个呢？</p>
 <p>每当有两个选项来处理同一件事时，人们常常提出这样的疑问：『我应该选择哪一个呢？』</p>
 <p>有两种可能性可以来解释我们为什么会有多种方法用于做同一件事：</p>
 <ol>
-<li>其中一个方法是传统的做法，另一些方法是对传统方法的改进，是了『新事物』。具体来说，我们通常为了向后兼容，会保留原有的旧方法，而新方法则是更新迭代所需要的新的基础设施。例如：React的 Class组件(旧方法) vs 函数组件(新方法)</li>
-<li>它们侧重于不同的角度，应该根据需求进行分析与考虑，从而分别应用于适合它们的情况（有时这也意味着在一段程序中会使用到上述提及的多个方法）；例如：<a href="https://kentcdodds.com/blog/should-i-usestate-or-usereducer" target="_blank" rel="noopener"><code>useState</code> vs <code>useReducer</code></a> 或是 <a href="https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener">Static vs Unit vs Integration vs E2E tests</a>，抑或是 <a href="https://kentcdodds.com/blog/control-props-vs-state-reducers" target="_blank" rel="noopener">“Control Props” vs “State Reducers”</a></li>
+<li>其中一个方法是传统的做法，另一些方法是对传统方法的改进，是『新事物』。具体来说，我们通常为了向后兼容，会保留原有的旧方法，而新方法则是更新迭代所需要的新的基础设施。例如：React的 Class组件(旧方法) vs 函数组件(新方法)</li>
+<li>它们侧重于不同的角度，应该根据需求进行分析与考虑，从而分别应用于适合它们的情况（有时这也意味着在一段程序中会使用到上述提及的多个方法）；例如：<a href="https://kentcdodds.com/blog/should-i-usestate-or-usereducer" target="_blank" rel="noopener"><code>useState</code> vs <code>useReducer</code></a> 或是 <a href="https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener">Static vs Unit vs Integration vs E2E tests</a>，亦或是 <a href="https://kentcdodds.com/blog/control-props-vs-state-reducers" target="_blank" rel="noopener">“Control Props” vs “State Reducers”</a></li>
 </ol>
 <p><code>useState</code> 和 <code>useReducer</code> 的对比，符合上面的第二条，所以让我们一起来讨论一下它们各自的适用场景吧~</p>
 <p>(悄悄说一句，这不是一个<a href="https://twitter.com/ryanflorence/status/1234534306707456000" target="_blank" rel="noopener">很难回答的问题</a> 😂)</p>
@@ -482,11 +482,79 @@
 <div class="note info">
             <p>当你所管理的这个状态，描述的是一个独立元素时，你应该使用 <code>useState</code> </p>
           </div>
-<h3><span id="ling-yi-ge-zi-ding-yi-hook-useundo">另一个自定义hook: <code>useUndo</code></span><a href="#ling-yi-ge-zi-ding-yi-hook-useundo" class="header-anchor">#</a></h3><p><a href="https://github.com/xxhomey19/use-undo" target="_blank" rel="noopener">Github上的 <code>useUndo</code></a> 是一个优秀的package，我从中受到了启发，感谢你，<a href="https://twitter.com/xxhomey19" target="_blank" rel="noopener"> Homer Chen</a>！</p>
-<p>(每个状态都是通过state描述的，所以没有下划高亮噢…)</p>
-<h3><span id="usestate-de-ban-ben"><code>useState</code>的版本</span><a href="#usestate-de-ban-ben" class="header-anchor">#</a></h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useUndo</span>(<span class="params">initialPresent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [past, setPast] = React.useState([])</span><br><span class="line">  <span class="keyword">const</span> [present, setPresent] = React.useState(initialPresent)</span><br><span class="line">  <span class="keyword">const</span> [future, setFuture] = React.useState([])</span><br><span class="line">  <span class="keyword">const</span> canUndo = past.length !== <span class="number">0</span></span><br><span class="line">  <span class="keyword">const</span> canRedo = future.length !== <span class="number">0</span></span><br><span class="line">  <span class="keyword">const</span> undo = React.useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!canUndo) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">const</span> previous = past[past.length - <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">const</span> newPast = past.slice(<span class="number">0</span>, past.length - <span class="number">1</span>)</span><br><span class="line">    setPast(newPast)</span><br><span class="line">    setPresent(previous)</span><br><span class="line">    setFuture([present, ...future])</span><br><span class="line">  &#125;, [canUndo, future, past, present])</span><br><span class="line">  <span class="keyword">const</span> redo = React.useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!canRedo) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">const</span> next = future[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">const</span> newFuture = future.slice(<span class="number">1</span>)</span><br><span class="line">    setPast([...past, present])</span><br><span class="line">    setPresent(next)</span><br><span class="line">    setFuture(newFuture)</span><br><span class="line">  &#125;, [canRedo, future, past, present])</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">set</span> = React.useCallback(</span><br><span class="line">    newPresent =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (newPresent === present) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      setPast([...past, present])</span><br><span class="line">      setPresent(newPresent)</span><br><span class="line">      setFuture([])</span><br><span class="line">    &#125;,</span><br><span class="line">    [past, present],</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">const</span> reset = React.useCallback(<span class="function"><span class="params">newPresent</span> =&gt;</span> &#123;</span><br><span class="line">    setPast([])</span><br><span class="line">    setPresent(newPresent)</span><br><span class="line">    setFuture([])</span><br><span class="line">  &#125;, [])</span><br><span class="line">  <span class="keyword">return</span> [</span><br><span class="line">    &#123;past, present, future&#125;,</span><br><span class="line">    &#123;<span class="keyword">set</span>, reset, undo, redo, canUndo, canRedo&#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看起来还不错对吧？实际上，在某些情况下，这却可能导致运行异常；但在解释何时会发生异常之前，我想梳理一下大家对于按顺序调用多个状态更新函数的常见误解（正如我们在上面这些函数中所调用的形式）。</p>
-<p>待续…</p>
+
+### 另一个自定义hook: `useUndo`
+
+[Github上的 `useUndo`](https://github.com/xxhomey19/use-undo) 是一个优秀的package，我从中受到了启发，感谢你，[ Homer Chen](https://twitter.com/xxhomey19)！
+
+(每个状态都是通过state描述的，所以没有下划高亮噢...)
+
+#### `useState`的版本
+
+undefined
+
+看起来还不错对吧？实际上，在某些情况下，这却可能导致运行异常；但在解释何时会发生异常之前，我想解释一下大家对于按顺序调用多个状态更新函数的常见误解（正如我们在上面这些函数中所调用的形式）。
+
+通常我们会认为 `setState` 函数每调用一次，就会触发一次重新渲染，所以 `reset` 函数会触发三次重新渲染。那么，首先要注意的是： (在优化重新渲染环节之前，应该先修复渲染缓慢的函数)[https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render]；其次，React有着合并更新系统，所以当你从事件回调或是 `useEffect` 钩子函数中执行 `reset` 函数时，这三次set将被合并，最终只会执行一次重新渲染；
+
+尽管如此，但当我们从一个 async 函数（例如一个HTTP请求函数）中调用 `reset` 时，依然会导致三次重新渲染；但在未来 React concurrent 模式中，这个问题将会被优化；所以我的主要关注点不在于重新渲染上。
+
+我的关注点是代码中隐藏的闭包旧值的bug！你能认出他们吗？有三个！我给你们一个提示，`undo`，`redo` 和 `set` 中都有一个，但 `reset` 中没有。
+
+下面是一个复现Bug的案例：
+
+undefined
+
+实际上是：
+
+undefined
+
+而预想的打印结果应该是：
+
+undefined
+
+所以在这种情况下，`second` 发生了啥？oh！看起来是我们忘了将 `set` 放进 useEffect 的依赖数组了，淦，我们把它加上试试：
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, &#123;<span class="keyword">set</span>&#125;] = useUndo('first')</span><br><span class="line">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    <span class="keyword">set</span>('second')</span><br><span class="line">  &#125;, [<span class="keyword">set</span>])</span><br><span class="line marked">  React.useEffect(() =&gt; &#123;</span><br><span class="line">    <span class="keyword">set</span>('third')</span><br><span class="line">  &#125;, [<span class="keyword">set</span>])</span><br><span class="line">  return &lt;pre&gt;&#123;<span class="built_in">JSON</span>.stringify(state, <span class="literal">null</span>, <span class="number">2</span>)&#125;&lt;<span class="regexp">/pre&gt;</span></span><br><span class="line marked"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+修改完毕，保存，重新加载... 等一下？！输出看起来就有问题！
+
+undefined
+
+但我们不是已经把 `set` 函数 memo化 过了吗？它不应该在它自身依赖未改变的情况下发生改变的呀... oh！是因为它自身包含了 `past` 和 `present` 两个值，所以每当我们调用一次 `set`，这两个值就会发生改变，这就导致了无限循环！
+
+现在这些例子都是人为拟定的，但是如果你根据网络请求的回调来更新状态，并且它们的返回顺序与发送时不同，那么可能会出现类似的错误。不管怎样，你都不想去思考这种事情，对吧？
+
+我们可以通过 `useReducer` 来解决这个问题，但我们也可以通过修改 `useState` 的使用方式，来避免这个问题，如下：
+
+undefined
+
+我做了以下内容来修复这个问题：
+
+1. 我使用了 setState 的回调形式来进行状态更新，这样的好处是我能从回调函数的参数中获取到先前的 state， 这样我就不需要将 state 作为依赖，并且避免闭包旧值问题；
+2. 我将所有 state 通过一个对象整合在了一起，这样的必要性是：我需要通过另一个状态来判定当前状态的值，例如在 `redo` 函数中，我们需要通过 `present` 来更新 `past`，`future` 来更新 `present`；
+3. 我直接计算组合获得 `canUndo` 和 `canRedo` 这两个状态值，所以我不需要将其列入依赖列表；
+
+这些步骤能让我们解决掉这个先前复现出的Bug，看起来不错，接下来让我们看看在 `useResucer` 中会是什么样的：
+
+#### `useResucer`的版本
+
+undefined
+
+`useUndo` 现在看起来很简洁了。如果我们从一开始就使用 useReducer，我们甚至不需要考虑向依赖项数组添加什么东西，因为这些函数非常简单，它们不需要任何的依赖。所有的逻辑都存在于我们的 reducer 中。这让我们很自然地规避掉闭包旧值这个问题。
+
+<div class="note info">
+            <p>当 state 中的一个元素依赖于另一个 state 的值来进行更新时，请使用 <code>useReducer</code> </p>
+          </div>
+<h2><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h2><p>当你需要一些 『既定规则』 时（不是ESLINT的规则哦），请参考以下几条：</p>
+<ul>
+<li>当 state 只是用来描述一个独立的元素时，请使用 <code>useState</code></li>
+<li>当 state 中的一个元素依赖于另一个 state 的值来进行更新时，请使用 <code>useReducer</code></li>
+</ul>
+<p>除开这些 『既定规则』，如何写更好是一件非常主观的事情，当然，老实说，即使是 『既定规则』 也是主观的，因为正如我所展示的代码，你可以使用任一方法来完成你想做的所有事情。</p>
+<p>另外，请注意，这也是视情况而定的。 你可以在一个 hook 或 组件中同时使用多个 <code>useState</code> 或 <code>useReducer</code> 。 按照使用作用域分离 state，如果它们一起更新，最好将其放在 reducer 中；如果某项 state 与该hook/组件中的其他 state 来说非常独立，那么将其与其他 state 绑定在一起只会给 reducer 增加不必要的复杂性，最好就让它保持 <code>useState</code> 的形式。</p>
+<p>因此，这不仅是 『当 <code>useStates</code> 数量超过X个时，我就要切换到 <code>useReducer</code>』这样的对比，而是存在着比这更细微的差别。 希望这篇文章可以帮助你了解到这些细微差别具体是什么，并找到可以最适合你目前情况的使用方法。 通常，我建议从 <code>useState</code> 开始，并留心 state 需要合并更改时迁移到 <code>useReducer</code>。</p>
+<p>感谢！遥祝各位写码愉快！</p>
 <h2><span id="yuan-wen-shi-pin">原文视频</span><a href="#yuan-wen-shi-pin" class="header-anchor">#</a></h2><p><em>Watch “When to useState instead of useReducer” on egghead.io</em></p>
 <iframe src="https://egghead.io/lessons/react-when-to-usestate-instead-of-usereducer/embed?pl=kent-s-blog-posts-as-screencasts-eefa540c&amp;preload=false&amp;af=5236ad" allowfullscreen style="display: block; position: relative; width: 720px; height: 405px; top: 0px; left: 0px; right: 0; margin: 0 auto; border: none; border-radius: 4px;"><br></iframe>
 
@@ -736,7 +804,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">前言#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">我们举例来说吧#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.</span> <span class="nav-text">一个自定义hook: useDarkMode#</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.1.</span> <span class="nav-text">useState的版本#</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.2.</span> <span class="nav-text">useReducer的版本#</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.2.</span> <span class="nav-text">另一个自定义hook: useUndo#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.3.</span> <span class="nav-text">useState的版本#</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">原文视频#</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">目录#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简介#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">前言#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">我们举例来说吧#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.</span> <span class="nav-text">一个自定义hook: useDarkMode#</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.1.</span> <span class="nav-text">useState的版本#</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.2.</span> <span class="nav-text">useReducer的版本#</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">总结#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">原文视频#</span></a></li></ol></div>
             
 
           </div>
